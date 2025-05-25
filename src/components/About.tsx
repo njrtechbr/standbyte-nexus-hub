@@ -26,16 +26,16 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-24 bg-standbyte-light">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-standbyte-blue mb-6">
+              <h2 className="text-4xl lg:text-5xl font-bold text-standbyte-blue mb-6">
                 Sobre a Standbyte
               </h2>
-              <div className="space-y-4 text-lg text-standbyte-gray-medium">
+              <div className="space-y-4 text-lg text-standbyte-mid">
                 <p>
                   A Standbyte é uma empresa líder em soluções de tecnologia da informação, 
                   com mais de 15 anos de experiência no mercado brasileiro.
@@ -52,49 +52,47 @@ const About = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((value, index) => (
                 <div
                   key={index}
-                  className="space-y-3"
+                  className="p-6 bg-standbyte-white rounded-xl border border-standbyte-mid/20"
                 >
-                  <div className="w-12 h-12 bg-standbyte-gray-light rounded-lg flex items-center justify-center">
-                    <value.icon className="w-6 h-6 text-standbyte-blue" />
+                  <div className="w-12 h-12 bg-standbyte-blue rounded-lg flex items-center justify-center mb-4">
+                    <value.icon className="w-6 h-6 text-standbyte-white" />
                   </div>
-                  <h3 className="font-semibold text-standbyte-gray-dark">{value.title}</h3>
-                  <p className="text-sm text-standbyte-gray-medium">{value.description}</p>
+                  <h3 className="font-bold text-standbyte-dark mb-2">{value.title}</h3>
+                  <p className="text-sm text-standbyte-mid">{value.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Visual */}
-          <div className="relative">
-            <div className="bg-gradient-to-br from-standbyte-gray-light to-white rounded-2xl p-8 shadow-lg">
-              <div className="space-y-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-standbyte-blue mb-2">15+</div>
-                  <div className="text-standbyte-gray-medium">Anos de Experiência</div>
+          <div className="bg-standbyte-white rounded-2xl p-8 border border-standbyte-mid/20">
+            <div className="space-y-8">
+              <div className="text-center">
+                <div className="text-5xl font-bold text-standbyte-blue mb-2">15+</div>
+                <div className="text-standbyte-mid">Anos de Experiência</div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6 text-center">
+                <div className="p-4 bg-standbyte-light rounded-xl">
+                  <div className="text-3xl font-bold text-standbyte-dark">500+</div>
+                  <div className="text-sm text-standbyte-mid">Projetos Entregues</div>
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-standbyte-gray-dark">500+</div>
-                    <div className="text-sm text-standbyte-gray-medium">Projetos Entregues</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-standbyte-gray-dark">98%</div>
-                    <div className="text-sm text-standbyte-gray-medium">Satisfação</div>
-                  </div>
+                <div className="p-4 bg-standbyte-light rounded-xl">
+                  <div className="text-3xl font-bold text-standbyte-dark">98%</div>
+                  <div className="text-sm text-standbyte-mid">Satisfação</div>
                 </div>
-                <div className="bg-white rounded-lg p-4 shadow-sm">
-                  <div className="text-center">
-                    <div className="text-lg font-semibold text-standbyte-gray-dark mb-2">
-                      "Tecnologia que Transforma"
-                    </div>
-                    <div className="text-sm text-standbyte-gray-medium">
-                      Nossa filosofia de trabalho
-                    </div>
-                  </div>
+              </div>
+              
+              <div className="bg-standbyte-blue p-6 rounded-xl text-center">
+                <div className="text-xl font-bold text-standbyte-white mb-2">
+                  "Tecnologia que Transforma"
+                </div>
+                <div className="text-standbyte-white/80">
+                  Nossa filosofia de trabalho
                 </div>
               </div>
             </div>

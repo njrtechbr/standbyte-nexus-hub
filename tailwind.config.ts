@@ -63,15 +63,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cores da Standbyte
+				// Cores exatas da Standbyte conforme especificações
 				standbyte: {
-					blue: '#1A3A8A',
-					red: '#E60000',
-					gray: {
-						dark: '#2D3748',
-						medium: '#718096',
-						light: '#F5F7FA'
-					}
+					blue: '#1A3A8A',      // PrimaryBlue
+					red: '#E60000',       // AccentRed
+					dark: '#2D3748',      // NeutralDark
+					mid: '#718096',       // NeutralMid
+					light: '#F5F7FA',     // NeutralLight
+					white: '#FFFFFF'      // NeutralWhite
 				}
 			},
 			borderRadius: {

@@ -1,38 +1,37 @@
 
-import { ArrowRight, Play, Zap, Shield, Wifi, Camera, Battery, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Wifi, Camera, Battery, Shield } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-standbyte-blue via-blue-800 to-standbyte-gray-dark">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }}></div>
-
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-32 min-h-screen flex items-center">
-        <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
+    <section id="home" className="pt-16 py-24 bg-standbyte-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           
           {/* Content Section */}
           <div className="space-y-8">
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-              <Zap className="w-5 h-5 text-standbyte-red mr-2" />
-              <span className="text-white font-medium">Standbyte - Inovação em Tecnologia</span>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-standbyte-light border border-standbyte-mid/20">
+              <CheckCircle className="w-4 h-4 text-standbyte-red mr-2" />
+              <span className="text-standbyte-dark text-sm font-medium">Certificação Fluke DSX-2000</span>
             </div>
             
             {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-              <div className="text-white mb-2">Infraestrutura</div>
-              <div className="text-white mb-2">Profissional</div>
-              <div className="text-standbyte-red">
+            <div className="space-y-4">
+              <h1 className="text-5xl lg:text-6xl font-bold text-standbyte-blue leading-tight">
+                Infraestrutura
+              </h1>
+              <h1 className="text-5xl lg:text-6xl font-bold text-standbyte-blue leading-tight">
+                Profissional
+              </h1>
+              <h1 className="text-5xl lg:text-6xl font-bold text-standbyte-red leading-tight">
                 Certificada
-              </div>
-            </h1>
+              </h1>
+            </div>
             
             {/* Description */}
-            <p className="text-xl text-standbyte-gray-medium leading-relaxed max-w-2xl">
+            <p className="text-xl text-standbyte-mid leading-relaxed max-w-xl">
               Especialistas em cabeamento estruturado, segurança eletrônica, energia solar e 
-              soluções completas de TI. Certificação Fluke DSX-2000 para máxima qualidade.
+              soluções completas de TI. Máxima qualidade garantida.
             </p>
 
             {/* Service Tags */}
@@ -45,10 +44,10 @@ const Hero = () => {
               ].map((service, index) => (
                 <div 
                   key={index} 
-                  className="flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors"
+                  className="flex items-center px-4 py-2 rounded-lg bg-standbyte-light border border-standbyte-mid/20"
                 >
                   <service.icon className="w-4 h-4 text-standbyte-red mr-2" />
-                  <span className="text-white text-sm font-medium">{service.text}</span>
+                  <span className="text-standbyte-dark text-sm font-medium">{service.text}</span>
                 </div>
               ))}
             </div>
@@ -57,20 +56,19 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
                 href="#services" 
-                className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white rounded-xl bg-standbyte-blue hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-4 bg-standbyte-blue text-standbyte-white font-semibold rounded-lg hover:bg-blue-800"
               >
                 Ver Nossos Serviços
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
               
-              <button className="inline-flex items-center justify-center px-8 py-4 text-white font-semibold rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
-                <Play className="mr-2 w-5 h-5" />
+              <button className="inline-flex items-center justify-center px-8 py-4 border-2 border-standbyte-blue text-standbyte-blue font-semibold rounded-lg hover:bg-standbyte-blue hover:text-standbyte-white">
                 Certificação Fluke
               </button>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8">
+            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-standbyte-light">
               {[
                 { number: "500+", label: "Projetos Entregues" },
                 { number: "15+", label: "Anos de Experiência" },
@@ -80,7 +78,7 @@ const Hero = () => {
                   <div className="text-3xl font-bold text-standbyte-red mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-standbyte-gray-medium text-sm">{stat.label}</div>
+                  <div className="text-standbyte-mid text-sm">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -88,51 +86,36 @@ const Hero = () => {
 
           {/* Visual Section */}
           <div className="relative">
-            {/* Main Card */}
-            <div className="relative z-10 bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:scale-105 transition-transform duration-500">
-              {/* Header dots */}
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-3 h-3 bg-standbyte-blue rounded-full"></div>
-                <div className="w-3 h-3 bg-standbyte-red rounded-full"></div>
-                <div className="w-3 h-3 bg-white rounded-full"></div>
-              </div>
-              
+            <div className="bg-standbyte-light rounded-2xl p-8 border border-standbyte-mid/20">
               {/* Fluke Certification */}
-              <div className="bg-standbyte-blue/20 p-4 rounded-xl border border-standbyte-blue/30 mb-6">
-                <div className="flex items-center space-x-3 mb-2">
-                  <CheckCircle className="w-5 h-5 text-standbyte-red" />
-                  <span className="text-white font-semibold">Certificação Fluke DSX-2000</span>
+              <div className="bg-standbyte-blue p-6 rounded-xl mb-6">
+                <div className="flex items-center space-x-3 mb-3">
+                  <CheckCircle className="w-6 h-6 text-standbyte-white" />
+                  <span className="text-standbyte-white font-bold text-lg">Certificação Fluke DSX-2000</span>
                 </div>
-                <div className="text-standbyte-gray-medium text-sm">Garantia de máxima performance</div>
+                <div className="text-standbyte-white/80">Garantia de máxima performance e qualidade</div>
               </div>
               
-              {/* Progress bars */}
-              <div className="space-y-4 mb-8">
-                <div className="h-3 bg-standbyte-blue rounded-full"></div>
-                <div className="h-3 bg-standbyte-red rounded-full w-4/5"></div>
-                <div className="h-3 bg-standbyte-gray-medium rounded-full w-3/5"></div>
-              </div>
-
               {/* Service Icons Grid */}
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Wifi, color: "bg-standbyte-blue" },
-                  { icon: Camera, color: "bg-standbyte-red" },
-                  { icon: Battery, color: "bg-standbyte-blue" },
-                  { icon: Shield, color: "bg-standbyte-red" }
+                  { icon: Wifi, color: "bg-standbyte-blue", label: "Rede" },
+                  { icon: Camera, color: "bg-standbyte-red", label: "CFTV" },
+                  { icon: Battery, color: "bg-standbyte-blue", label: "Solar" },
+                  { icon: Shield, color: "bg-standbyte-red", label: "Segurança" }
                 ].map((item, index) => (
                   <div 
                     key={index} 
-                    className={`h-20 ${item.color} rounded-xl flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer`}
+                    className="text-center p-4 bg-standbyte-white rounded-xl border border-standbyte-mid/20"
                   >
-                    <item.icon className="w-8 h-8 text-white" />
+                    <div className={`w-12 h-12 ${item.color} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+                      <item.icon className="w-6 h-6 text-standbyte-white" />
+                    </div>
+                    <div className="text-standbyte-dark font-medium text-sm">{item.label}</div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Background card shadow */}
-            <div className="absolute -bottom-6 -right-6 w-full h-full bg-standbyte-blue/20 rounded-3xl -z-10"></div>
           </div>
         </div>
       </div>

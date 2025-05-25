@@ -45,20 +45,14 @@ const Hero = () => {
                   <span className="text-white font-medium">Standbyte - Inovação em Tecnologia</span>
                 </div>
                 
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-                  <span className="text-white animate-fade-in-scale">Infraestrutura</span>
+                <h1 className="text-5xl sm:text-6xl font-bold leading-tight lg:text-7xl px-0 py-0 my-[20px] mx-[240px]">
+                  <span className="text-white animate-fade-in-scale mx-[15px] my-0 px-0 py-[38px]">Infraestrutura
+Profissional
+Certificada</span>
                   <br />
-                  <span style={{
-                  animationDelay: '0.2s'
-                }} className="bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent text-shimmer text-7xl">
-                    Profissional
-                  </span>
+                  
                   <br />
-                  <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent animate-fade-in-scale" style={{
-                  animationDelay: '0.4s'
-                }}>
-                    Certificada
-                  </span>
+                  
                 </h1>
                 
                 <p className="text-xl text-gray-300 leading-relaxed max-w-2xl animate-slide-in-up" style={{

@@ -13,7 +13,7 @@ const Services = () => {
       icon: Shield,
       title: "Segurança Avançada",
       description: "Proteção de dados de próxima geração com criptografia moderna.",
-      gradient: "from-gray-500 to-gray-700"
+      gradient: "from-red-500 to-red-700"
     },
     {
       icon: Brain,
@@ -37,7 +37,7 @@ const Services = () => {
       icon: Rocket,
       title: "Transformação Digital",
       description: "Aceleração da inovação com tecnologias emergentes.",
-      gradient: "from-gray-500 to-blue-700"
+      gradient: "from-red-500 to-blue-700"
     },
   ];
 
@@ -51,8 +51,8 @@ const Services = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
+        <div className="text-center max-w-4xl mx-auto mb-20 animate-slide-in-up">
+          <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6 animate-fade-in-scale">
             <Zap className="w-5 h-5 text-blue-600 mr-2" />
             <span className="text-gray-700 font-medium">Serviços Inovadores</span>
           </div>
@@ -60,7 +60,7 @@ const Services = () => {
           <h2 className="text-5xl font-bold mb-6">
             <span className="text-gray-900">Soluções que</span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 to-gray-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
               Transformam o Futuro
             </span>
           </h2>
@@ -75,18 +75,19 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/50 hover:border-transparent hover:shadow-xl transition-all duration-300"
+              className="group relative p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/50 hover:border-transparent hover:shadow-xl transition-all duration-300 animate-fade-in-scale hover:scale-105"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Gradient border on hover */}
               <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`}></div>
               <div className="absolute inset-[2px] rounded-2xl bg-white/95 group-hover:bg-white transition-colors duration-300"></div>
               
               <div className="relative z-10">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-200`}>
+                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   <service.icon className="w-8 h-8 text-white" />
                 </div>
                 
-                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-gray-600 transition-all duration-300">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-red-600 transition-all duration-300">
                   {service.title}
                 </h3>
                 
@@ -105,10 +106,10 @@ const Services = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
+        <div className="text-center mt-16 animate-slide-in-up">
           <a
             href="#contact"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-gray-600 text-white font-semibold rounded-full hover:from-gray-600 hover:to-blue-800 transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-red-600 text-white font-semibold rounded-full hover:from-red-600 hover:to-blue-800 transition-all duration-300 hover:scale-105"
           >
             <Rocket className="mr-2 w-5 h-5" />
             Transforme Seu Negócio Agora

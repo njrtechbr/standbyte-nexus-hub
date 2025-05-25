@@ -50,7 +50,7 @@ const Hero = () => {
                   <br />
                   <span style={{
                   animationDelay: '0.2s'
-                }} className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent text-shimmer">
+                }} className="bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent text-shimmer">
                     Profissional
                   </span>
                   <br />

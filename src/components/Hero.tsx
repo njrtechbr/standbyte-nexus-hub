@@ -1,4 +1,3 @@
-
 import { ArrowRight, Play, Zap, Shield, Wifi, Camera, Battery, CheckCircle } from "lucide-react";
 
 const Hero = () => {
@@ -30,14 +29,12 @@ const Hero = () => {
                   <span className="text-white font-medium">Standbyte - Inovação em Tecnologia</span>
                 </div>
                 
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-                  <span className="text-white">Infraestrutura</span>
-                  <br />
-                  <span className="text-white">Profissional</span>
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-left">
+                  <div className="text-white mb-2">Infraestrutura</div>
+                  <div className="text-white mb-2">Profissional</div>
+                  <div className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                     Certificada
-                  </span>
+                  </div>
                 </h1>
                 
                 <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">

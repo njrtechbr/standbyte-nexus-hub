@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
       scrolled 
-        ? 'bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-200' 
+        ? 'bg-white/95 backdrop-blur-sm shadow-lg border-b border-standbyte-gray-light' 
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,15 +34,15 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <div className="text-3xl font-bold flex items-center space-x-1">
-              <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+              <span className="text-standbyte-blue">
                 Stand
               </span>
               <span className={`${
-                scrolled ? 'text-gray-800' : 'text-white'
+                scrolled ? 'text-standbyte-gray-dark' : 'text-white'
               }`}>
                 byte
               </span>
-              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <div className="w-2 h-2 bg-standbyte-red rounded-full" />
             </div>
           </div>
 
@@ -52,9 +52,9 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className={`font-semibold ${
+                className={`font-semibold transition-colors ${
                   scrolled 
-                    ? 'text-gray-700 hover:text-blue-600' 
+                    ? 'text-standbyte-gray-dark hover:text-standbyte-blue' 
                     : 'text-white/90 hover:text-white'
                 }`}
               >
@@ -67,7 +67,7 @@ const Header = () => {
           <div className="hidden md:block">
             <a
               href="#contact"
-              className="px-8 py-4 font-bold text-white rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:opacity-90"
+              className="px-8 py-4 font-bold text-white rounded-xl bg-standbyte-red hover:bg-red-700 transition-colors"
             >
               <div className="flex items-center space-x-2">
                 <Zap className="w-5 h-5" />
@@ -85,11 +85,11 @@ const Header = () => {
             >
               {isMenuOpen ? (
                 <X className={`w-6 h-6 ${
-                  scrolled ? 'text-gray-700' : 'text-white'
+                  scrolled ? 'text-standbyte-gray-dark' : 'text-white'
                 }`} />
               ) : (
                 <Menu className={`w-6 h-6 ${
-                  scrolled ? 'text-gray-700' : 'text-white'
+                  scrolled ? 'text-standbyte-gray-dark' : 'text-white'
                 }`} />
               )}
             </button>
@@ -99,17 +99,17 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl mt-4 mb-6 shadow-xl border border-gray-200 overflow-hidden">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl mt-4 mb-6 shadow-xl border border-standbyte-gray-light overflow-hidden">
               <nav className="p-6 space-y-3">
                 {menuItems.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="flex items-center justify-between px-6 py-4 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-700 font-semibold"
+                    className="flex items-center justify-between px-6 py-4 rounded-xl bg-standbyte-gray-light hover:bg-standbyte-blue hover:text-white text-standbyte-gray-dark font-semibold transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <span>{item.name}</span>
-                    <ArrowRight className="w-5 h-5 text-gray-400" />
+                    <ArrowRight className="w-5 h-5 text-standbyte-gray-medium" />
                   </a>
                 ))}
                 
@@ -117,7 +117,7 @@ const Header = () => {
                 <div className="pt-4">
                   <a
                     href="#contact"
-                    className="flex items-center justify-center space-x-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-bold"
+                    className="flex items-center justify-center space-x-3 bg-standbyte-red text-white px-8 py-4 rounded-xl font-bold hover:bg-red-700 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Zap className="w-5 h-5" />

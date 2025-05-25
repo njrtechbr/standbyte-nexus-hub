@@ -32,10 +32,10 @@ const About = () => {
           {/* Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl font-bold text-standbyte-blue mb-6">
                 Sobre a Standbyte
               </h2>
-              <div className="space-y-4 text-lg text-gray-600">
+              <div className="space-y-4 text-lg text-standbyte-gray-medium">
                 <p>
                   A Standbyte é uma empresa líder em soluções de tecnologia da informação, 
                   com mais de 15 anos de experiência no mercado brasileiro.
@@ -56,14 +56,13 @@ const About = () => {
               {values.map((value, index) => (
                 <div
                   key={index}
-                  className="space-y-3 animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="space-y-3"
                 >
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <value.icon className="w-6 h-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-standbyte-gray-light rounded-lg flex items-center justify-center">
+                    <value.icon className="w-6 h-6 text-standbyte-blue" />
                   </div>
-                  <h3 className="font-semibold text-gray-900">{value.title}</h3>
-                  <p className="text-sm text-gray-600">{value.description}</p>
+                  <h3 className="font-semibold text-standbyte-gray-dark">{value.title}</h3>
+                  <p className="text-sm text-standbyte-gray-medium">{value.description}</p>
                 </div>
               ))}
             </div>
@@ -71,28 +70,28 @@ const About = () => {
 
           {/* Visual */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg">
+            <div className="bg-gradient-to-br from-standbyte-gray-light to-white rounded-2xl p-8 shadow-lg">
               <div className="space-y-6">
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">15+</div>
-                  <div className="text-gray-600">Anos de Experiência</div>
+                  <div className="text-4xl font-bold text-standbyte-blue mb-2">15+</div>
+                  <div className="text-standbyte-gray-medium">Anos de Experiência</div>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">500+</div>
-                    <div className="text-sm text-gray-600">Projetos Entregues</div>
+                    <div className="text-2xl font-bold text-standbyte-gray-dark">500+</div>
+                    <div className="text-sm text-standbyte-gray-medium">Projetos Entregues</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">98%</div>
-                    <div className="text-sm text-gray-600">Satisfação</div>
+                    <div className="text-2xl font-bold text-standbyte-gray-dark">98%</div>
+                    <div className="text-sm text-standbyte-gray-medium">Satisfação</div>
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-4 shadow-sm">
                   <div className="text-center">
-                    <div className="text-lg font-semibold text-gray-900 mb-2">
+                    <div className="text-lg font-semibold text-standbyte-gray-dark mb-2">
                       "Tecnologia que Transforma"
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-standbyte-gray-medium">
                       Nossa filosofia de trabalho
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 
-import { CheckCircle, ArrowRight, Star, Award, Shield, Clock, Users, Wrench } from "lucide-react";
+import { CheckCircle, ArrowRight, Star, Award, Shield, Clock, Users, Wrench, Network, Camera, Zap, HardDrive, Mail, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/Header";
@@ -7,105 +7,174 @@ import Footer from "@/components/Footer";
 
 const Servicos = () => {
   const services = [
+    // Infraestrutura de Rede e Comunicação
     {
       id: 1,
-      title: "Certificação de Cabeamento",
-      description: "Certificação profissional de rede estruturada com equipamento Fluke DSX2-8000",
+      title: "Cabeamento Estruturado",
+      description: "Serviços completos de cabeamento estruturado para rede lógica e voz com padrões internacionais",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
-      price: "A partir de R$ 45,00/ponto",
       features: [
-        "Certificação Cat5e até Cat8",
-        "Relatórios técnicos detalhados",
-        "Conformidade TIA/ISO",
-        "Garantia de performance"
+        "Cabeamento de rede lógica Cat5e/Cat6/Cat6A",
+        "Infraestrutura para telefonia (voz)",
+        "Certificação com equipamentos Fluke",
+        "Conformidade com normas TIA/EIA e ABNT"
       ],
       badge: "Mais Procurado",
-      category: "Infraestrutura"
+      category: "Infraestrutura",
+      icon: Network
     },
     {
       id: 2,
-      title: "Instalação de Rede Estruturada",
-      description: "Projeto e instalação completa de cabeamento estruturado para empresas",
+      title: "Fibra Óptica",
+      description: "Lançamento e fusão de fibra óptica para conexões de alta velocidade e longa distância",
       image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      price: "A partir de R$ 120,00/ponto",
       features: [
-        "Projeto técnico personalizado",
-        "Instalação profissional",
-        "Testes de qualidade",
-        "1 ano de garantia"
+        "Lançamento de cabos de fibra óptica",
+        "Fusão de fibras com equipamentos certificados",
+        "Testes de atenuação e reflectometria",
+        "Documentação técnica completa"
       ],
       badge: "Premium",
-      category: "Infraestrutura"
+      category: "Infraestrutura",
+      icon: Zap
     },
     {
       id: 3,
-      title: "Manutenção Preventiva",
-      description: "Manutenção completa de computadores e servidores com relatório técnico",
+      title: "Projeto de Rede Técnico",
+      description: "Desenvolvimento de projetos de rede com assinatura de engenheiro responsável",
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
-      price: "A partir de R$ 85,00",
       features: [
-        "Limpeza interna completa",
-        "Verificação de componentes",
-        "Backup de dados",
-        "Relatório de saúde"
-      ],
-      badge: "Essencial",
-      category: "Manutenção"
-    },
-    {
-      id: 4,
-      title: "Consultoria em TI",
-      description: "Consultoria especializada para otimização da infraestrutura tecnológica",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-      price: "A partir de R$ 150,00/hora",
-      features: [
-        "Análise da infraestrutura atual",
-        "Planejamento estratégico",
-        "Recomendações técnicas",
-        "Acompanhamento da implementação"
+        "Projeto técnico detalhado",
+        "Assinatura de engenheiro responsável",
+        "Memorial descritivo e especificações",
+        "Plantas baixas e diagramas unifilares"
       ],
       badge: "Profissional",
-      category: "Consultoria"
+      category: "Projetos",
+      icon: Award
     },
+
+    // Segurança Eletrônica
+    {
+      id: 4,
+      title: "Câmeras de Segurança (CFTV)",
+      description: "Instalação completa de sistemas de câmeras IP e analógicas para monitoramento",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop",
+      features: [
+        "Câmeras IP de alta resolução",
+        "Sistemas analógicos tradicionais",
+        "Gravação em DVR/NVR",
+        "Acesso remoto via smartphone/web"
+      ],
+      badge: "Segurança",
+      category: "Segurança",
+      icon: Camera
+    },
+
+    // Projetos Técnicos
     {
       id: 5,
-      title: "Suporte Técnico 24/7",
-      description: "Suporte técnico especializado disponível 24 horas por dia",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop",
-      price: "A partir de R$ 299,00/mês",
+      title: "Projeto Elétrico",
+      description: "Desenvolvimento de projetos elétricos com assinatura de engenheiro responsável",
+      image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop",
       features: [
-        "Atendimento 24/7",
-        "Suporte remoto",
-        "Técnicos especializados",
-        "SLA garantido"
+        "Projeto elétrico residencial e comercial",
+        "Assinatura de engenheiro responsável",
+        "Cálculos de demanda e dimensionamento",
+        "Conformidade com normas ABNT"
       ],
-      badge: "24/7",
-      category: "Suporte"
+      badge: "Certificado",
+      category: "Projetos",
+      icon: Zap
     },
     {
       id: 6,
-      title: "Segurança Digital",
-      description: "Implementação de soluções de segurança digital avançadas",
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop",
-      price: "Sob consulta",
+      title: "Projeto de Infraestrutura TI",
+      description: "Projetos completos de infraestrutura de tecnologia da informação",
+      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
       features: [
-        "Análise de vulnerabilidades",
-        "Implementação de firewall",
-        "Políticas de segurança",
-        "Treinamento da equipe"
+        "Análise da infraestrutura atual",
+        "Dimensionamento de equipamentos",
+        "Topologia de rede otimizada",
+        "Documentação técnica detalhada"
       ],
-      badge: "Segurança",
-      category: "Segurança"
+      badge: "Especializado",
+      category: "Projetos",
+      icon: Network
+    },
+
+    // Energia e Estabilização
+    {
+      id: 7,
+      title: "Painéis Solares",
+      description: "Instalação de sistemas de energia solar On-Grid e Off-Grid",
+      image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=300&fit=crop",
+      features: [
+        "Sistemas On-Grid (conectados à rede)",
+        "Sistemas Off-Grid (isolados)",
+        "Dimensionamento personalizado",
+        "Monitoramento de geração"
+      ],
+      badge: "Sustentável",
+      category: "Energia",
+      icon: Sun
+    },
+    {
+      id: 8,
+      title: "Nobreaks",
+      description: "Instalação de sistemas de energia ininterrupta de grande e pequeno porte",
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+      features: [
+        "Nobreaks de pequeno porte (até 3kVA)",
+        "Sistemas de grande porte (acima de 3kVA)",
+        "Configuração e programação",
+        "Testes de autonomia"
+      ],
+      badge: "Confiável",
+      category: "Energia",
+      icon: Shield
+    },
+
+    // Serviços de TI e Corporativo
+    {
+      id: 9,
+      title: "Backup de Dados",
+      description: "Sistema de backup mensal automatizado para proteção de dados corporativos",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
+      features: [
+        "Backup automatizado mensal",
+        "Armazenamento seguro em nuvem",
+        "Recuperação rápida de dados",
+        "Monitoramento contínuo"
+      ],
+      badge: "Essencial",
+      category: "TI Corporativo",
+      icon: HardDrive
+    },
+    {
+      id: 10,
+      title: "E-mail Corporativo",
+      description: "Implantação completa de sistema de e-mail corporativo profissional",
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop",
+      features: [
+        "Domínio personalizado da empresa",
+        "Caixas de e-mail ilimitadas",
+        "Integração com Outlook/Thunderbird",
+        "Suporte técnico especializado"
+      ],
+      badge: "Profissional",
+      category: "TI Corporativo",
+      icon: Mail
     }
   ];
 
-  const categories = ["Todos", "Infraestrutura", "Manutenção", "Consultoria", "Suporte", "Segurança"];
+  const categories = ["Todos", "Infraestrutura", "Segurança", "Projetos", "Energia", "TI Corporativo"];
 
   const testimonials = [
     {
       name: "João Silva",
       company: "TechCorp Ltda",
-      text: "Excelente serviço de certificação de rede. Profissionais qualificados e equipamentos de primeira linha.",
+      text: "Excelente serviço de infraestrutura de rede. Profissionais qualificados e equipamentos de primeira linha.",
       rating: 5
     },
     {
@@ -174,6 +243,11 @@ const Servicos = () => {
                         {service.category}
                       </span>
                     </div>
+                    <div className="absolute bottom-4 right-4">
+                      <div className="w-10 h-10 bg-standbyte-blue rounded-lg flex items-center justify-center">
+                        <service.icon className="w-5 h-5 text-standbyte-white" />
+                      </div>
+                    </div>
                   </div>
                 </CardHeader>
 
@@ -196,12 +270,6 @@ const Servicos = () => {
                   </div>
 
                   <div className="border-t border-standbyte-light pt-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-standbyte-blue">
-                        {service.price}
-                      </span>
-                    </div>
-                    
                     <Button className="w-full bg-standbyte-blue hover:bg-blue-800 text-standbyte-white">
                       Solicitar Orçamento
                       <ArrowRight className="ml-2 w-4 h-4" />
@@ -227,7 +295,7 @@ const Servicos = () => {
                 { icon: Award, title: "Certificados", desc: "Profissionais qualificados" },
                 { icon: Shield, title: "Garantia", desc: "Serviços garantidos" },
                 { icon: Clock, title: "Agilidade", desc: "Atendimento rápido" },
-                { icon: Users, title: "Experiência", desc: "+10 anos no mercado" }
+                { icon: Users, title: "Experiência", desc: "+15 anos no mercado" }
               ].map((feature, index) => (
                 <div key={index} className="text-center">
                   <div className="w-16 h-16 bg-standbyte-blue rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -273,7 +341,7 @@ const Servicos = () => {
         <div className="bg-standbyte-blue text-standbyte-white py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl font-bold mb-4">
-              Pronto para transformar sua TI?
+              Pronto para transformar sua infraestrutura?
             </h2>
             <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
               Entre em contato conosco e receba um orçamento personalizado para suas necessidades

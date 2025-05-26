@@ -1,169 +1,268 @@
-// src/pages/Orcamento.tsx
-import React, { useState, useEffect } from 'react'; // Adicionado useEffect
+
+import { useState } from "react";
+import { Send, Calculator, CheckCircle, Clock, Award, Users } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; // Para lista de serviços
-import { Helmet } from 'react-helmet-async';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { createQuote } from '@/admin/services/quoteService'; // Ajuste o caminho
-import { getServices as getPublishedServices } from '@/admin/services/serviceService'; // Para buscar serviços
-import type { Service } from '@/admin/types/serviceTypes'; // Para tipar serviços
-import { Loader2, Send, CheckCircle, AlertTriangle } from 'lucide-react';
-// import { usePageContent } from '@/hooks/usePageContent';
-
-// Schema de validação com Zod
-const quoteFormSchema = z.object({
-  name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres." }),
-  email: z.string().email({ message: "Email inválido." }),
-  phone: z.string().optional().nullable(),
-  service_interest: z.string().optional().nullable(), // Pode ser o ID ou nome do serviço
-  message: z.string().min(10, { message: "Mensagem deve ter pelo menos 10 caracteres." }),
-});
-
-type QuoteFormValues = z.infer<typeof quoteFormSchema>;
 
 const Orcamento = () => {
-  // const { pageData, loading: pageLoading, error: pageError } = usePageContent("orcamento"); // Para SEO dinâmico
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [services, setServices] = useState<Service[]>([]);
-
-  const { register, handleSubmit, reset, control, setValue, formState: { errors, isSubmitting } } = useForm<QuoteFormValues>({ // Adicionado setValue
-    resolver: zodResolver(quoteFormSchema),
-    defaultValues: { name: '', email: '', phone: '', service_interest: '', message: '' }
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    empresa: '',
+    servico: '',
+    urgencia: '',
+    orcamento: '',
+    detalhes: ''
   });
-  
-  useEffect(() => {
-    // Carregar serviços publicados para o dropdown
-    const fetchServicesForDropdown = async () => {
-      try {
-        const data = await getPublishedServices(); // Assumindo que getServices busca todos
-        setServices(data.filter(s => s.is_published)); // Filtrar publicados aqui
-      } catch (error) {
-        console.error("Erro ao buscar serviços para o formulário:", error);
-        // Não bloquear o formulário por isso, o campo pode ser digitado manualmente
-      }
-    };
-    fetchServicesForDropdown();
-  }, []);
 
-
-  const onSubmit = async (data: QuoteFormValues) => {
-    setFormStatus('submitting');
-    setSubmitError(null);
-    try {
-      await createQuote(data);
-      setFormStatus('success');
-      reset();
-    } catch (err: any) {
-      setFormStatus('error');
-      setSubmitError(err.message || "Ocorreu um erro ao enviar sua solicitação. Tente novamente.");
-      console.error("Erro ao enviar solicitação de orçamento:", err);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Orçamento solicitado:', formData);
+    // Aqui seria feita a integração com backend
   };
 
-  const pageTitle = "Solicitar Orçamento - StandByte";
-  const pageDescription = "Solicite um orçamento detalhado para nossos produtos e serviços. Nossa equipe está pronta para atender você.";
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const servicos = [
+    "Cabeamento Estruturado",
+    "Fibra Óptica", 
+    "Projeto de Rede",
+    "Câmeras de Segurança (CFTV)",
+    "Projeto Elétrico",
+    "Infraestrutura de TI",
+    "Painéis Solares",
+    "Nobreaks",
+    "Backup de Dados",
+    "E-mail Corporativo",
+    "Consultoria em TI",
+    "Suporte Especializado"
+  ];
 
   return (
-    <div className="min-h-screen bg-neutralWhite">
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-      </Helmet>
+    <div className="min-h-screen bg-standbyte-light">
       <Header />
+      
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-standbyte-blue mb-4">
+            Solicitar Orçamento
+          </h1>
+          <p className="text-lg text-standbyte-mid max-w-2xl mx-auto">
+            Preencha o formulário abaixo e receba um orçamento personalizado para suas necessidades de tecnologia.
+          </p>
+        </div>
 
-      <main className="py-12 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-primaryBlue">Solicitar um Orçamento</h1>
-            <p className="mt-4 text-lg text-neutralMid max-w-xl mx-auto">
-              Descreva sua necessidade e receba uma proposta personalizada da nossa equipe de especialistas.
-            </p>
-          </div>
-
-          <div className="max-w-2xl mx-auto bg-neutralLight p-8 md:p-10 rounded-lg shadow-xl">
-            {formStatus === 'success' ? (
-              <div className="text-center py-10">
-                <CheckCircle className="mx-auto h-16 w-16 text-green-500 mb-4" />
-                <h2 className="text-2xl font-semibold text-neutralDark mb-2">Solicitação Enviada!</h2>
-                <p className="text-neutralMid">Obrigado por solicitar um orçamento. Entraremos em contato em breve com sua proposta.</p>
-                <Button onClick={() => setFormStatus('idle')} className="mt-6 bg-primaryBlue text-neutralWhite hover:bg-opacity-90">
-                  Solicitar Novo Orçamento
-                </Button>
+        {/* Benefits Section */}
+        <div className="grid md:grid-cols-4 gap-6 mb-12">
+          {[
+            { icon: CheckCircle, title: "Orçamento Gratuito", desc: "Análise sem custo" },
+            { icon: Clock, title: "Resposta Rápida", desc: "Em até 24 horas" },
+            { icon: Award, title: "Profissionais Certificados", desc: "Equipe qualificada" },
+            { icon: Users, title: "Atendimento Personalizado", desc: "Soluções sob medida" }
+          ].map((benefit, index) => (
+            <div key={index} className="bg-standbyte-white p-6 rounded-lg border border-standbyte-mid/20 text-center">
+              <div className="w-12 h-12 bg-standbyte-blue rounded-lg flex items-center justify-center mx-auto mb-4">
+                <benefit.icon className="w-6 h-6 text-standbyte-white" />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div>
-                  <Label htmlFor="name" className={errors.name ? 'text-destructive' : 'text-neutralDark'}>Nome Completo / Empresa</Label>
-                  <Input id="name" {...register('name')} placeholder="Seu nome ou nome da empresa" className={`mt-1 ${errors.name ? 'border-destructive' : ''}`} />
-                  {errors.name && <p className="text-sm text-destructive mt-1">{errors.name.message}</p>}
-                </div>
+              <h3 className="font-bold text-standbyte-dark mb-2">{benefit.title}</h3>
+              <p className="text-sm text-standbyte-mid">{benefit.desc}</p>
+            </div>
+          ))}
+        </div>
 
-                <div>
-                  <Label htmlFor="email" className={errors.email ? 'text-destructive' : 'text-neutralDark'}>Email de Contato</Label>
-                  <Input id="email" type="email" {...register('email')} placeholder="seu.email@empresa.com" className={`mt-1 ${errors.email ? 'border-destructive' : ''}`} />
-                  {errors.email && <p className="text-sm text-destructive mt-1">{errors.email.message}</p>}
+        {/* Form Section */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-standbyte-white p-8 rounded-lg border border-standbyte-mid/20 shadow-lg">
+            <div className="flex items-center mb-6">
+              <Calculator className="w-8 h-8 text-standbyte-red mr-3" />
+              <h2 className="text-2xl font-bold text-standbyte-blue">
+                Formulário de Orçamento
+              </h2>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Dados Pessoais */}
+              <div>
+                <h3 className="text-lg font-semibold text-standbyte-dark mb-4 border-l-4 border-standbyte-red pl-3">
+                  Dados Pessoais
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="nome" className="text-standbyte-dark">Nome Completo *</Label>
+                    <Input
+                      id="nome"
+                      name="nome"
+                      value={formData.nome}
+                      onChange={handleChange}
+                      required
+                      className="border-standbyte-mid focus:border-standbyte-blue"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email" className="text-standbyte-dark">E-mail *</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="border-standbyte-mid focus:border-standbyte-blue"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="telefone" className="text-standbyte-dark">Telefone *</Label>
+                    <Input
+                      id="telefone"
+                      name="telefone"
+                      value={formData.telefone}
+                      onChange={handleChange}
+                      required
+                      placeholder="(11) 99999-9999"
+                      className="border-standbyte-mid focus:border-standbyte-blue"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="empresa" className="text-standbyte-dark">Empresa</Label>
+                    <Input
+                      id="empresa"
+                      name="empresa"
+                      value={formData.empresa}
+                      onChange={handleChange}
+                      placeholder="Nome da sua empresa"
+                      className="border-standbyte-mid focus:border-standbyte-blue"
+                    />
+                  </div>
                 </div>
+              </div>
 
-                <div>
-                  <Label htmlFor="phone" className="text-neutralDark">Telefone / WhatsApp (Opcional)</Label>
-                  <Input id="phone" {...register('phone')} placeholder="(XX) XXXXX-XXXX" className="mt-1" />
-                </div>
-                
-                <div>
-                  <Label htmlFor="service_interest" className="text-neutralDark">Serviço de Interesse (Opcional)</Label>
-                  <Select 
-                    onValueChange={(value) => setValue('service_interest', value === 'none' ? '' : value)} // Permite desmarcar ou usa o valor
-                    // defaultValue={''} // Default value for Select is handled by react-hook-form's defaultValues
-                  >
-                    <SelectTrigger id="service_interest" className="mt-1">
-                      <SelectValue placeholder="Selecione um serviço (opcional)" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">Nenhum específico / Outro</SelectItem>
-                      {services.map(service => (
-                        <SelectItem key={service.id} value={service.name}> {/* Pode enviar o nome ou o ID */}
-                          {service.name}
-                        </SelectItem>
+              {/* Detalhes do Serviço */}
+              <div>
+                <h3 className="text-lg font-semibold text-standbyte-dark mb-4 border-l-4 border-standbyte-red pl-3">
+                  Detalhes do Serviço
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="servico" className="text-standbyte-dark">Tipo de Serviço *</Label>
+                    <select
+                      id="servico"
+                      name="servico"
+                      value={formData.servico}
+                      onChange={handleChange}
+                      required
+                      className="w-full h-10 px-3 py-2 border border-standbyte-mid rounded-md focus:border-standbyte-blue focus:outline-none"
+                    >
+                      <option value="">Selecione um serviço</option>
+                      {servicos.map((servico) => (
+                        <option key={servico} value={servico}>{servico}</option>
                       ))}
-                    </SelectContent>
-                  </Select>
-                   {/* Ou um Input simples se não quiser carregar serviços:
-                   <Input id="service_interest" {...register('service_interest')} placeholder="Ex: Cabeamento Estruturado, CFTV" className="mt-1" />
-                   */}
+                    </select>
+                  </div>
+                  <div>
+                    <Label htmlFor="urgencia" className="text-standbyte-dark">Urgência *</Label>
+                    <select
+                      id="urgencia"
+                      name="urgencia"
+                      value={formData.urgencia}
+                      onChange={handleChange}
+                      required
+                      className="w-full h-10 px-3 py-2 border border-standbyte-mid rounded-md focus:border-standbyte-blue focus:outline-none"
+                    >
+                      <option value="">Selecione a urgência</option>
+                      <option value="baixa">Baixa - Até 30 dias</option>
+                      <option value="media">Média - Até 15 dias</option>
+                      <option value="alta">Alta - Até 7 dias</option>
+                      <option value="urgente">Urgente - Até 3 dias</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="orcamento" className="text-standbyte-dark">Orçamento Estimado</Label>
+                    <select
+                      id="orcamento"
+                      name="orcamento"
+                      value={formData.orcamento}
+                      onChange={handleChange}
+                      className="w-full h-10 px-3 py-2 border border-standbyte-mid rounded-md focus:border-standbyte-blue focus:outline-none"
+                    >
+                      <option value="">Selecione uma faixa de orçamento</option>
+                      <option value="ate-5k">Até R$ 5.000</option>
+                      <option value="5k-15k">R$ 5.000 - R$ 15.000</option>
+                      <option value="15k-30k">R$ 15.000 - R$ 30.000</option>
+                      <option value="30k-50k">R$ 30.000 - R$ 50.000</option>
+                      <option value="acima-50k">Acima de R$ 50.000</option>
+                    </select>
+                  </div>
                 </div>
+              </div>
 
+              {/* Detalhes Adicionais */}
+              <div>
+                <h3 className="text-lg font-semibold text-standbyte-dark mb-4 border-l-4 border-standbyte-red pl-3">
+                  Detalhes Adicionais
+                </h3>
                 <div>
-                  <Label htmlFor="message" className={errors.message ? 'text-destructive' : 'text-neutralDark'}>Descreva sua Necessidade</Label>
-                  <Textarea id="message" {...register('message')} rows={6} placeholder="Forneça detalhes sobre o projeto, quantidades, local, ou qualquer informação relevante..." className={`mt-1 ${errors.message ? 'border-destructive' : ''}`} />
-                  {errors.message && <p className="text-sm text-destructive mt-1">{errors.message.message}</p>}
+                  <Label htmlFor="detalhes" className="text-standbyte-dark">Descrição Detalhada do Projeto *</Label>
+                  <Textarea
+                    id="detalhes"
+                    name="detalhes"
+                    value={formData.detalhes}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    placeholder="Descreva detalhadamente suas necessidades, tamanho do ambiente, quantidade de pontos de rede, especificações técnicas, etc."
+                    className="border-standbyte-mid focus:border-standbyte-blue"
+                  />
                 </div>
-                
-                {formStatus === 'error' && submitError && (
-                    <div className="p-3 rounded-md bg-destructive/15 text-destructive text-sm flex items-center gap-2">
-                        <AlertTriangle className="h-5 w-5 flex-shrink-0"/>
-                        <p>{submitError}</p>
-                    </div>
-                )}
+              </div>
 
-                <div>
-                  <Button type="submit" className="w-full bg-primaryBlue hover:bg-opacity-90 text-neutralWhite py-3 text-base" disabled={isSubmitting}>
-                    {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
-                    {isSubmitting ? 'Enviando Solicitação...' : 'Enviar Solicitação de Orçamento'}
+              {/* Submit Button */}
+              <div className="bg-standbyte-light p-6 rounded-lg border-l-4 border-standbyte-red">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h4 className="font-semibold text-standbyte-dark">Pronto para solicitar seu orçamento?</h4>
+                    <p className="text-sm text-standbyte-mid">
+                      Nossa equipe entrará em contato em até 24 horas úteis.
+                    </p>
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="bg-standbyte-red hover:bg-red-700 text-standbyte-white font-semibold py-3 px-8 whitespace-nowrap"
+                  >
+                    <Send className="w-5 h-5 mr-2" />
+                    Solicitar Orçamento
                   </Button>
                 </div>
-              </form>
-            )}
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-12 text-center">
+          <div className="bg-standbyte-blue text-standbyte-white p-6 rounded-lg max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold mb-3">Dúvidas? Fale Conosco</h3>
+            <p className="mb-4">
+              Precisa de esclarecimentos antes de solicitar o orçamento?
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <p className="text-standbyte-white/90">📞 (11) 3456-7890</p>
+              <p className="text-standbyte-white/90">📧 orcamentos@standbyte.com.br</p>
+            </div>
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );

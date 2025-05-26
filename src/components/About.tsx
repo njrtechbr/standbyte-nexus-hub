@@ -1,68 +1,101 @@
-// src/components/About.tsx
-import React from 'react';
-import { Button } from "@/components/ui/button"; // Ajuste o caminho
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import type { ContentSection } from '@/admin/types/pageContentTypes'; // Ajuste o caminho
 
-interface AboutProps {
-  sectionData?: ContentSection | null;
-}
+import { Award, Users, Target, Heart } from "lucide-react";
 
-// Conteúdo Padrão/Fallback
-const defaultAboutData: Partial<ContentSection> = {
-  title: "Sobre a StandByte",
-  text_content: "Somos uma equipe apaixonada por tecnologia, dedicada a fornecer soluções inovadoras e personalizadas para nossos clientes. Com anos de experiência no mercado, combinamos conhecimento técnico com um atendimento ao cliente excepcional para impulsionar o sucesso do seu negócio. Nossa missão é simplificar a complexidade tecnológica e transformar desafios em oportunidades.",
-  image_url: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80", // Imagem de fallback
-  image_alt_text: "Equipe colaborando em um projeto",
-  cta_text: "Conheça Nossa História",
-  cta_link: "/sobre" // Link para a página "Sobre" completa
-};
-
-const About: React.FC<AboutProps> = ({ sectionData }) => {
-  // Usar sectionData se for do tipo esperado (ex: 'textWithImage' ou 'about_us_content'), senão usar fallback.
-  // Ajuste o 'sectionData.type' conforme o tipo que você usará no admin para esta seção.
-  const data = sectionData && (sectionData.type === 'textWithImage' || sectionData.type === 'about_us_content') 
-               ? sectionData 
-               : defaultAboutData;
-
-  if (!data.title) { // Se não houver título (nem no fallback), não renderizar.
-    return null;
-  }
+const About = () => {
+  const values = [
+    {
+      icon: Award,
+      title: "Excelência",
+      description: "Buscamos sempre a máxima qualidade em nossos produtos e serviços.",
+    },
+    {
+      icon: Users,
+      title: "Equipe Especializada",
+      description: "Profissionais certificados e em constante atualização tecnológica.",
+    },
+    {
+      icon: Target,
+      title: "Foco no Cliente",
+      description: "Soluções personalizadas para atender às necessidades específicas.",
+    },
+    {
+      icon: Heart,
+      title: "Compromisso",
+      description: "Parcerias duradouras baseadas na confiança e transparência.",
+    },
+  ];
 
   return (
-    <section id="about" className="py-16 md:py-24 bg-neutralWhite">
+    <section id="about" className="py-24 bg-standbyte-light">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Coluna de Imagem */}
-          <div className={`animate-fade-in-scale ${data.image_url ? 'order-1 md:order-2' : 'hidden'}`}>
-            {data.image_url && (
-              <img 
-                src={data.image_url} 
-                alt={data.image_alt_text || 'Sobre nós'} 
-                className="rounded-lg shadow-xl w-full h-auto max-h-[500px] object-cover"
-              />
-            )}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Content */}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-standbyte-blue mb-6">
+                Sobre a Standbyte
+              </h2>
+              <div className="space-y-4 text-lg text-standbyte-mid">
+                <p>
+                  A Standbyte é uma empresa líder em soluções de tecnologia da informação, 
+                  com mais de 15 anos de experiência no mercado brasileiro.
+                </p>
+                <p>
+                  Nossa missão é fornecer produtos e serviços de alta qualidade que 
+                  impulsionem o crescimento e a eficiência dos nossos clientes através 
+                  da tecnologia.
+                </p>
+                <p>
+                  Combinamos expertise técnica com atendimento personalizado para 
+                  entregar soluções que realmente fazem a diferença no seu negócio.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {values.map((value, index) => (
+                <div
+                  key={index}
+                  className="p-6 bg-standbyte-white rounded-xl border border-standbyte-mid/20"
+                >
+                  <div className="w-12 h-12 bg-standbyte-blue rounded-lg flex items-center justify-center mb-4">
+                    <value.icon className="w-6 h-6 text-standbyte-white" />
+                  </div>
+                  <h3 className="font-bold text-standbyte-dark mb-2">{value.title}</h3>
+                  <p className="text-sm text-standbyte-mid">{value.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Coluna de Texto */}
-          <div className={`space-y-6 ${data.image_url ? 'order-2 md:order-1' : 'md:col-span-2 text-center'}`}>
-            <h2 className="text-3xl md:text-4xl font-bold text-primaryBlue mb-4">
-              {data.title}
-            </h2>
-            {data.text_content && (
-              <p className="text-lg text-neutralDark leading-relaxed whitespace-pre-line">
-                {data.text_content}
-              </p>
-            )}
-            {data.cta_text && data.cta_link && (
-              <Button size="lg" asChild className="mt-6 bg-accentRed hover:bg-opacity-80 text-neutralWhite">
-                <Link to={data.cta_link}>
-                  {data.cta_text}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            )}
+          {/* Visual */}
+          <div className="bg-standbyte-white rounded-2xl p-8 border border-standbyte-mid/20">
+            <div className="space-y-8">
+              <div className="text-center">
+                <div className="text-5xl font-bold text-standbyte-blue mb-2">15+</div>
+                <div className="text-standbyte-mid">Anos de Experiência</div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6 text-center">
+                <div className="p-4 bg-standbyte-light rounded-xl">
+                  <div className="text-3xl font-bold text-standbyte-dark">500+</div>
+                  <div className="text-sm text-standbyte-mid">Projetos Entregues</div>
+                </div>
+                <div className="p-4 bg-standbyte-light rounded-xl">
+                  <div className="text-3xl font-bold text-standbyte-dark">98%</div>
+                  <div className="text-sm text-standbyte-mid">Satisfação</div>
+                </div>
+              </div>
+              
+              <div className="bg-standbyte-blue p-6 rounded-xl text-center">
+                <div className="text-xl font-bold text-standbyte-white mb-2">
+                  "Tecnologia que Transforma"
+                </div>
+                <div className="text-standbyte-white/80">
+                  Nossa filosofia de trabalho
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

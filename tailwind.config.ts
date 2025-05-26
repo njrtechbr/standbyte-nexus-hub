@@ -63,14 +63,15 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cores StandByte (diretamente acessíveis)
-				primaryBlue: '#1A3A8A',
-				accentRed: '#E60000',
-				neutralDark: '#2D3748',
-				neutralMid: '#A0AEC0',    // Principal Mid
-				neutralMidAlt: '#718096', // Mid Alternativo
-				neutralLight: '#F5F7FA',
-				neutralWhite: '#FFFFFF',
+				// Cores exatas da Standbyte conforme especificações
+				standbyte: {
+					blue: '#1A3A8A',      // PrimaryBlue
+					red: '#E60000',       // AccentRed
+					dark: '#2D3748',      // NeutralDark
+					mid: '#718096',       // NeutralMid
+					light: '#F5F7FA',     // NeutralLight
+					white: '#FFFFFF'      // NeutralWhite
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

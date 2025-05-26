@@ -12,6 +12,36 @@ export const services = [
       "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop"
     ],
+    projectGallery: [
+      {
+        id: 1,
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
+        title: "Empresa ABC - Data Center",
+        location: "São Paulo, SP",
+        description: "Cabeamento estruturado completo para data center corporativo"
+      },
+      {
+        id: 2,
+        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop",
+        title: "Hospital XYZ",
+        location: "Rio de Janeiro, RJ",
+        description: "Infraestrutura de rede para ambiente hospitalar"
+      },
+      {
+        id: 3,
+        image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop",
+        title: "Escritório Corporativo DEF",
+        location: "Brasília, DF",
+        description: "Rede lógica para 200 pontos de trabalho"
+      },
+      {
+        id: 4,
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=600&fit=crop",
+        title: "Centro de Distribuição GHI",
+        location: "Guarulhos, SP",
+        description: "Cabeamento industrial para centro logístico"
+      }
+    ],
     features: [
       "Cabeamento de rede lógica Cat5e/Cat6/Cat6A",
       "Infraestrutura para telefonia (voz)",
@@ -49,6 +79,29 @@ export const services = [
       "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop"
     ],
+    projectGallery: [
+      {
+        id: 1,
+        image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop",
+        title: "Conexão Entre Prédios - Empresa JKL",
+        location: "São Paulo, SP",
+        description: "Fibra óptica para interconexão de 3 prédios corporativos"
+      },
+      {
+        id: 2,
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
+        title: "Campus Universitário MNO",
+        location: "Campinas, SP",
+        description: "Backbone de fibra óptica para universidade"
+      },
+      {
+        id: 3,
+        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop",
+        title: "Provedor de Internet PQR",
+        location: "Belo Horizonte, MG",
+        description: "Expansão de rede metropolitana com fibra óptica"
+      }
+    ],
     features: [
       "Lançamento de cabos de fibra óptica",
       "Fusão de fibras com equipamentos certificados",
@@ -85,6 +138,29 @@ export const services = [
     gallery: [
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop"
+    ],
+    projectGallery: [
+      {
+        id: 1,
+        image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
+        title: "Condomínio Residencial STU",
+        location: "São Paulo, SP",
+        description: "Sistema CFTV com 48 câmeras para segurança condominial"
+      },
+      {
+        id: 2,
+        image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop",
+        title: "Shopping Center VWX",
+        location: "Ribeirão Preto, SP",
+        description: "Monitoramento completo com 120 câmeras IP 4K"
+      },
+      {
+        id: 3,
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=600&fit=crop",
+        title: "Fábrica Industrial YZ",
+        location: "São José dos Campos, SP",
+        description: "Sistema de segurança para ambiente industrial"
+      }
     ],
     features: [
       "Câmeras IP de alta resolução (até 4K)",

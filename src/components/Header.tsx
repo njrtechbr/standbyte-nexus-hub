@@ -20,8 +20,8 @@ const Header = () => {
     { name: "Início", href: "/" },
     { name: "Produtos", href: "/produtos" },
     { name: "Serviços", href: "/servicos" },
-    { name: "Sobre", href: "/#about" },
-    { name: "Contato", href: "/#contact" },
+    { name: "Sobre", href: "/sobre" },
+    { name: "Contato", href: "/contato" },
   ];
 
   const isActive = (href: string) => {
@@ -109,22 +109,28 @@ const Header = () => {
               </button>
 
               {/* User Account */}
-              <button className="hidden md:flex items-center space-x-2 p-2 text-standbyte-blue hover:text-standbyte-red transition-colors">
+              <Link
+                to="/conta"
+                className="hidden md:flex items-center space-x-2 p-2 text-standbyte-blue hover:text-standbyte-red transition-colors"
+              >
                 <User className="w-6 h-6" />
                 <span className="hidden lg:block font-medium">Conta</span>
-              </button>
+              </Link>
 
               {/* Shopping Cart */}
-              <button className="relative p-2 text-standbyte-blue hover:text-standbyte-red transition-colors">
+              <Link
+                to="/carrinho"
+                className="relative p-2 text-standbyte-blue hover:text-standbyte-red transition-colors"
+              >
                 <ShoppingCart className="w-6 h-6" />
                 <span className="absolute -top-1 -right-1 bg-standbyte-red text-standbyte-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   0
                 </span>
-              </button>
+              </Link>
 
               {/* Orçamento CTA */}
               <Link
-                to="/servicos"
+                to="/contato"
                 className="hidden md:inline-flex items-center px-6 py-3 bg-standbyte-red text-standbyte-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
               >
                 Solicitar Orçamento
@@ -187,10 +193,20 @@ const Header = () => {
                   Minha Conta
                 </Link>
 
+                {/* Mobile Cart */}
+                <Link
+                  to="/carrinho"
+                  className="flex items-center px-4 py-3 text-standbyte-blue hover:bg-standbyte-light hover:text-standbyte-red transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-3" />
+                  Carrinho
+                </Link>
+
                 {/* Mobile CTA */}
                 <div className="px-4 pt-2">
                   <Link
-                    to="/servicos"
+                    to="/contato"
                     className="flex items-center justify-center w-full px-6 py-3 bg-standbyte-red text-standbyte-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >

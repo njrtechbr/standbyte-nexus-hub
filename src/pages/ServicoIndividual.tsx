@@ -1,18 +1,18 @@
 
-import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, CheckCircle, Clock, Shield, Users, FileText, Phone, MapPin, Images } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ServiceBreadcrumb from "@/components/service/ServiceBreadcrumb";
+import ServiceImageGallery from "@/components/service/ServiceImageGallery";
+import ServiceInfo from "@/components/service/ServiceInfo";
+import ServiceProjectGallery from "@/components/service/ServiceProjectGallery";
+import ServiceDetails from "@/components/service/ServiceDetails";
+import ServiceCTA from "@/components/service/ServiceCTA";
 import { getServiceBySlug } from "@/data/services";
 
 const ServicoIndividual = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedProjectImage, setSelectedProjectImage] = useState<number | null>(null);
-
   const service = slug ? getServiceBySlug(slug) : null;
 
   if (!service) {
@@ -36,14 +36,7 @@ const ServicoIndividual = () => {
       
       <main className="pt-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-8 text-sm">
-            <Link to="/" className="text-standbyte-mid hover:text-standbyte-blue">Home</Link>
-            <span className="text-standbyte-mid">/</span>
-            <Link to="/servicos" className="text-standbyte-mid hover:text-standbyte-blue">Serviços</Link>
-            <span className="text-standbyte-mid">/</span>
-            <span className="text-standbyte-dark">{service.title}</span>
-          </div>
+          <ServiceBreadcrumb serviceTitle={service.title} />
 
           {/* Back Button */}
           <Link 
@@ -55,284 +48,30 @@ const ServicoIndividual = () => {
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Service Images */}
-            <div className="space-y-4">
-              <div className="aspect-video bg-standbyte-light rounded-lg overflow-hidden">
-                <img 
-                  src={service.gallery[selectedImage]} 
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              
-              {service.gallery.length > 1 && (
-                <div className="flex gap-3">
-                  {service.gallery.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`w-20 h-16 rounded-lg overflow-hidden border-2 ${
-                        selectedImage === index ? 'border-standbyte-blue' : 'border-standbyte-light'
-                      }`}
-                    >
-                      <img 
-                        src={image} 
-                        alt={`${service.title} ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Service Info */}
-            <div className="space-y-6">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="bg-standbyte-red text-standbyte-white px-3 py-1 text-sm font-bold rounded-full">
-                    {service.badge}
-                  </span>
-                  <span className="text-xs bg-standbyte-light text-standbyte-dark px-3 py-1 rounded">
-                    {service.category}
-                  </span>
-                </div>
-                
-                <h1 className="text-3xl font-bold text-standbyte-dark mb-4">
-                  {service.title}
-                </h1>
-                
-                <p className="text-xl text-standbyte-mid leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-
-              {/* Service Details */}
-              <div className="border-t border-standbyte-light pt-6">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="flex items-center gap-3">
-                    <Clock className="w-5 h-5 text-standbyte-blue" />
-                    <div>
-                      <span className="block text-sm text-standbyte-mid">Prazo</span>
-                      <span className="font-medium text-standbyte-dark">{service.duration}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Shield className="w-5 h-5 text-standbyte-blue" />
-                    <div>
-                      <span className="block text-sm text-standbyte-mid">Garantia</span>
-                      <span className="font-medium text-standbyte-dark">{service.warranty}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="border-t border-standbyte-light pt-6">
-                <div className="flex flex-col gap-4">
-                  <Link to="/orcamento">
-                    <Button 
-                      size="lg" 
-                      className="w-full bg-standbyte-red hover:bg-red-700 text-standbyte-white"
-                    >
-                      <FileText className="w-5 h-5 mr-2" />
-                      Solicitar Orçamento Grátis
-                    </Button>
-                  </Link>
-                  
-                  <Link to="/contato">
-                    <Button 
-                      size="lg" 
-                      variant="outline"
-                      className="w-full border-standbyte-blue text-standbyte-blue hover:bg-standbyte-blue hover:text-standbyte-white"
-                    >
-                      <Phone className="w-5 h-5 mr-2" />
-                      Falar com Especialista
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <ServiceImageGallery gallery={service.gallery} title={service.title} />
+            <ServiceInfo 
+              title={service.title}
+              description={service.description}
+              badge={service.badge}
+              category={service.category}
+              duration={service.duration}
+              warranty={service.warranty}
+            />
           </div>
 
-          {/* Projetos Realizados Gallery */}
-          {service.projectGallery && service.projectGallery.length > 0 && (
-            <div className="mt-16">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-standbyte-dark mb-4 flex items-center justify-center gap-3">
-                  <Images className="w-8 h-8 text-standbyte-blue" />
-                  Projetos Realizados
-                </h2>
-                <p className="text-xl text-standbyte-mid max-w-2xl mx-auto">
-                  Confira alguns dos projetos de {service.title.toLowerCase()} que já realizamos para nossos clientes
-                </p>
-              </div>
+          <ServiceProjectGallery 
+            projectGallery={service.projectGallery} 
+            serviceTitle={service.title}
+          />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {service.projectGallery.map((project) => (
-                  <Card 
-                    key={project.id} 
-                    className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
-                    onClick={() => setSelectedProjectImage(project.id)}
-                  >
-                    <div className="aspect-video overflow-hidden">
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-bold text-standbyte-dark mb-2 group-hover:text-standbyte-blue transition-colors">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-2 mb-2">
-                        <MapPin className="w-4 h-4 text-standbyte-mid" />
-                        <span className="text-sm text-standbyte-mid">{project.location}</span>
-                      </div>
-                      <p className="text-sm text-standbyte-mid leading-relaxed">
-                        {project.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+          <ServiceDetails 
+            fullDescription={service.fullDescription}
+            features={service.features}
+            benefits={service.benefits}
+            process={service.process}
+          />
 
-              {/* Modal para visualizar imagem em tamanho maior */}
-              {selectedProjectImage && (
-                <div 
-                  className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
-                  onClick={() => setSelectedProjectImage(null)}
-                >
-                  <div className="max-w-4xl max-h-full relative">
-                    <button
-                      onClick={() => setSelectedProjectImage(null)}
-                      className="absolute -top-10 right-0 text-white hover:text-standbyte-red text-2xl font-bold"
-                    >
-                      ✕
-                    </button>
-                    {service.projectGallery.find(p => p.id === selectedProjectImage) && (
-                      <div className="bg-standbyte-white rounded-lg overflow-hidden">
-                        <img 
-                          src={service.projectGallery.find(p => p.id === selectedProjectImage)!.image}
-                          alt={service.projectGallery.find(p => p.id === selectedProjectImage)!.title}
-                          className="w-full h-auto max-h-[80vh] object-contain"
-                        />
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-standbyte-dark mb-2">
-                            {service.projectGallery.find(p => p.id === selectedProjectImage)!.title}
-                          </h3>
-                          <div className="flex items-center gap-2 mb-3">
-                            <MapPin className="w-4 h-4 text-standbyte-mid" />
-                            <span className="text-standbyte-mid">
-                              {service.projectGallery.find(p => p.id === selectedProjectImage)!.location}
-                            </span>
-                          </div>
-                          <p className="text-standbyte-mid">
-                            {service.projectGallery.find(p => p.id === selectedProjectImage)!.description}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Service Details Sections */}
-          <div className="mt-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Full Description */}
-              <Card>
-                <CardHeader>
-                  <h3 className="text-xl font-bold text-standbyte-dark">Sobre o Serviço</h3>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-standbyte-mid leading-relaxed">{service.fullDescription}</p>
-                </CardContent>
-              </Card>
-
-              {/* Features */}
-              <Card>
-                <CardHeader>
-                  <h3 className="text-xl font-bold text-standbyte-dark">O que Inclui</h3>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {service.features.map((feature, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-standbyte-blue flex-shrink-0 mt-0.5" />
-                        <span className="text-standbyte-dark">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Benefits */}
-              <Card>
-                <CardHeader>
-                  <h3 className="text-xl font-bold text-standbyte-dark">Benefícios</h3>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {service.benefits.map((benefit, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-standbyte-blue rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-standbyte-dark">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Process */}
-              <Card>
-                <CardHeader>
-                  <h3 className="text-xl font-bold text-standbyte-dark">Como Funciona</h3>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {service.process.map((step, index) => (
-                      <div key={index} className="flex items-start gap-4">
-                        <div className="w-8 h-8 bg-standbyte-blue text-standbyte-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                          {index + 1}
-                        </div>
-                        <span className="text-standbyte-dark pt-1">{step}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="mt-16 bg-standbyte-light rounded-2xl p-8 text-center">
-            <h2 className="text-3xl font-bold text-standbyte-dark mb-4">
-              Pronto para começar seu projeto?
-            </h2>
-            <p className="text-xl text-standbyte-mid mb-8 max-w-2xl mx-auto">
-              Entre em contato conosco e receba um orçamento personalizado para suas necessidades
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/orcamento">
-                <Button size="lg" className="bg-standbyte-red hover:bg-red-700 text-standbyte-white px-8">
-                  Solicitar Orçamento
-                </Button>
-              </Link>
-              <Link to="/contato">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-standbyte-blue text-standbyte-blue hover:bg-standbyte-blue hover:text-standbyte-white px-8"
-                >
-                  Falar Conosco
-                </Button>
-              </Link>
-            </div>
-          </div>
+          <ServiceCTA />
         </div>
       </main>
 

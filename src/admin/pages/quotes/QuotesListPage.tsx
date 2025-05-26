@@ -1,20 +1,18 @@
+
 // src/admin/pages/quotes/QuotesListPage.tsx
 import React, { useEffect, useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom'; // useNavigate pode ser útil para detalhes
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'; // Adicionado DropdownMenuSeparator
-import { MoreHorizontal, Search, Trash2, Eye, CheckCircle, XCircle, Archive, MailQuestion, Loader2, AlertTriangle, FileText } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { MoreHorizontal, Trash2, Eye, CheckCircle, Archive, MailQuestion, Loader2, AlertTriangle, FileText } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label'; // Adicionado Label
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // Para filtro de status
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { getQuotes, deleteQuote, updateQuoteStatus } from '@/admin/services/quoteService'; // Ajustado
-import type { Quote, QuoteStatus } from '@/admin/types/quoteTypes'; // Ajustado
-// import { useToast } from '@/components/ui/use-toast';
-import { format } from 'date-fns'; // Para formatar datas
-import { ptBR } from 'date-fns/locale'; // Para localização pt-BR
+import { getQuotes, deleteQuote, updateQuoteStatus } from '@/admin/services/quoteService';
+import type { Quote, QuoteStatus } from '@/admin/types/quoteTypes';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const statusMapping: Record<QuoteStatus, { label: string; color: string; icon: React.ElementType }> = {
   Pendente: { label: "Pendente", color: "bg-yellow-500", icon: MailQuestion },
@@ -23,9 +21,6 @@ const statusMapping: Record<QuoteStatus, { label: string; color: string; icon: R
 };
 
 export default function QuotesListPage() {
-  // const navigate = useNavigate();
-  // const { toast } = useToast();
-
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,10 +49,8 @@ export default function QuotesListPage() {
       try {
         await deleteQuote(quoteId);
         setQuotes(prevQuotes => prevQuotes.filter(q => q.id !== quoteId));
-        // toast({ title: "Sucesso", description: "Solicitação excluída." });
       } catch (err: any) {
         setError(err.message || 'Erro ao excluir solicitação.');
-        // toast({ title: "Erro", description: err.message, variant: "destructive" });
       }
     }
   };
@@ -67,11 +60,9 @@ export default function QuotesListPage() {
       const updatedQuote = await updateQuoteStatus(quoteId, status);
       if (updatedQuote) {
         setQuotes(prevQuotes => prevQuotes.map(q => q.id === quoteId ? updatedQuote : q));
-        // toast({ title: "Sucesso", description: `Status atualizado para ${status}.` });
       }
     } catch (err: any) {
       setError(err.message || `Erro ao atualizar status para ${status}.`);
-      // toast({ title: "Erro", description: err.message, variant: "destructive" });
     }
   };
   
@@ -79,15 +70,10 @@ export default function QuotesListPage() {
     filterStatus === "Todos" || quote.status === filterStatus
   );
 
-  // Os blocos de loading e error foram movidos para dentro do CardContent para melhor estrutura
-  // if (loading) { /* ... UI de loading ... */ }
-  // if (error) { /* ... UI de erro ... */ }
-
   return (
     <div className="p-2 md:p-4">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-primaryBlue">Solicitações de Orçamento</h1>
-        {/* Botão de Adicionar não é necessário aqui, pois orçamentos vêm do site público */}
       </div>
 
       <Card className="shadow-lg mb-6">
@@ -115,7 +101,6 @@ export default function QuotesListPage() {
                 </SelectContent>
               </Select>
             </div>
-            {/* Outros filtros podem ser adicionados aqui, ex: busca por nome/email */}
           </div>
         </CardContent>
       </Card>
@@ -128,12 +113,12 @@ export default function QuotesListPage() {
             </CardDescription>
         </CardHeader>
         <CardContent>
-            {loading && ( /* UI de Loading principal */
+            {loading && (
                 <div className="flex justify-center items-center py-12">
                     <Loader2 className="h-16 w-16 animate-spin text-primaryBlue" />
                 </div>
             )}
-            {!loading && error && ( /* UI de Erro principal */
+            {!loading && error && (
                 <div className="p-4 rounded-md bg-destructive/10 text-destructive flex flex-col items-center justify-center py-12">
                     <AlertTriangle className="h-12 w-12 mb-4" />
                     <h2 className="text-xl font-semibold mb-2">Erro ao carregar solicitações</h2>
@@ -163,7 +148,11 @@ export default function QuotesListPage() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {filteredQuotes.map((quote) => (
+                {filteredQuotes.map((quote) => {
+                  const statusInfo = statusMapping[quote.status || 'Pendente'];
+                  const StatusIcon = statusInfo.icon;
+                  
+                  return (
                 <TableRow key={quote.id} className="hover:bg-neutralLight/50">
                     <TableCell className="font-medium text-neutralDark">{quote.name}</TableCell>
                     <TableCell>
@@ -176,11 +165,11 @@ export default function QuotesListPage() {
                     </TableCell>
                     <TableCell className="text-center">
                     <Badge 
-                        variant="default" // Usar default e controlar cor via className
-                        className={`${statusMapping[quote.status || 'Pendente']?.color || 'bg-gray-400'} text-white`}
+                        variant="default"
+                        className={`${statusInfo.color} text-white`}
                     >
-                        <statusMapping[quote.status || 'Pendente'].icon className="mr-1 h-3 w-3"/> 
-                        {statusMapping[quote.status || 'Pendente'].label}
+                        <StatusIcon className="mr-1 h-3 w-3"/> 
+                        {statusInfo.label}
                     </Badge>
                     </TableCell>
                     <TableCell className="text-center">
@@ -193,23 +182,25 @@ export default function QuotesListPage() {
                         <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Ações</DropdownMenuLabel>
                         <DropdownMenuItem onClick={() => alert(`Detalhes: ${quote.message}\n\nServiço: ${quote.service_interest || 'Não especificado'}`)}>
-                            {/* TODO: Abrir modal/drawer com detalhes completos, incluindo quote.message */}
                             <Eye className="mr-2 h-4 w-4" /> Ver Detalhes
                         </DropdownMenuItem>
                         <DropdownMenuSub>
                             <DropdownMenuSubTrigger><CheckCircle className="mr-2 h-4 w-4" /> Mudar Status</DropdownMenuSubTrigger>
                             <DropdownMenuPortal>
                             <DropdownMenuSubContent>
-                                {Object.keys(statusMapping).map(statusKey => (
+                                {Object.keys(statusMapping).map(statusKey => {
+                                  const SubStatusIcon = statusMapping[statusKey as QuoteStatus].icon;
+                                  return (
                                 <DropdownMenuItem 
                                     key={statusKey} 
                                     onClick={() => handleUpdateStatus(quote.id!, statusKey as QuoteStatus)}
                                     disabled={quote.status === statusKey}
                                 >
-                                    <statusMapping[statusKey as QuoteStatus].icon className="mr-2 h-4 w-4" />
+                                    <SubStatusIcon className="mr-2 h-4 w-4" />
                                     {statusMapping[statusKey as QuoteStatus].label}
                                 </DropdownMenuItem>
-                                ))}
+                                  );
+                                })}
                             </DropdownMenuSubContent>
                             </DropdownMenuPortal>
                         </DropdownMenuSub>
@@ -224,7 +215,8 @@ export default function QuotesListPage() {
                     </DropdownMenu>
                     </TableCell>
                 </TableRow>
-                ))}
+                  );
+                })}
             </TableBody>
             </Table>
             )}

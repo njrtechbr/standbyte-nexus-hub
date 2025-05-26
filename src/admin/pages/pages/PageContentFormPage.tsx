@@ -1,7 +1,8 @@
+
 // src/admin/pages/pages/PageContentFormPage.tsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm, Controller, useFieldArray } from 'react-hook-form'; // Adicionado useFieldArray
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
@@ -9,17 +10,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-// import { Checkbox } from '@/components/ui/checkbox'; // Pode não ser usado aqui
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // Para tipo de seção
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { ArrowLeft, Save, Loader2, AlertTriangle, PlusCircle, Trash2 } from 'lucide-react';
-import { getPageContentById, updatePageContent } from '@/admin/services/pageContentService'; // Ajustado
-import type { PageContent, ContentSection } from '@/admin/types/pageContentTypes'; // Ajustado
-// import { useToast } from '@/components/ui/use-toast';
+import { getPageContentById, updatePageContent } from '@/admin/services/pageContentService';
+import type { PageContent, ContentSection } from '@/admin/types/pageContentTypes';
 
 // Schema Zod para ContentSection
 const contentSectionSchema = z.object({
-  id: z.string().optional(), // UUID ou identificador frontend
+  id: z.string().optional(),
   type: z.string().min(1, { message: "Tipo da seção é obrigatório." }),
   title: z.string().optional().nullable(),
   text_content: z.string().optional().nullable(),
@@ -27,17 +26,17 @@ const contentSectionSchema = z.object({
   image_alt_text: z.string().optional().nullable(),
   cta_text: z.string().optional().nullable(),
   cta_link: z.string().url({ message: "URL de CTA inválida" }).optional().or(z.literal('')).nullable(),
-  items: z.array(z.object({ question: z.string(), answer: z.string() })).optional().nullable(), // Para FAQ
+  items: z.array(z.object({ question: z.string(), answer: z.string() })).optional().nullable(),
 });
 
 // Schema Zod para PageContent
 const pageContentFormSchema = z.object({
-  page_identifier: z.string(), // Read-only no form
+  page_identifier: z.string(),
   title: z.string().optional().nullable(),
   meta_title: z.string().max(60, { message: "Meta Título deve ter no máximo 60 caracteres." }).optional().nullable(),
   meta_description: z.string().max(160, { message: "Meta Descrição deve ter no máximo 160 caracteres." }).optional().nullable(),
   meta_keywords: z.string().optional().nullable(),
-  structured_data: z.string().optional().nullable(), // Para JSON em texto
+  structured_data: z.string().optional().nullable(),
   content_sections: z.array(contentSectionSchema).optional().nullable(),
 });
 
@@ -49,19 +48,15 @@ const SECTION_TYPES = [
   { value: 'faq', label: 'FAQ (Perguntas Frequentes)' },
   { value: 'cta_banner', label: 'Banner de Chamada para Ação' },
   { value: 'generic_text', label: 'Bloco de Texto Genérico' },
-  // Adicionar outros tipos conforme necessário
 ];
-
 
 export default function PageContentFormPage() {
   const navigate = useNavigate();
-  const { pageId } = useParams<{ pageId: string }>(); // Usando ID da tabela
-  // const { toast } = useToast();
+  const { pageId } = useParams<{ pageId: string }>();
 
   const [loadingPage, setLoadingPage] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [pageIdentifierDisplay, setPageIdentifierDisplay] = useState<string>('');
-
 
   const { register, handleSubmit, control, reset, watch, setValue, formState: { errors, isSubmitting } } = useForm<PageContentFormValues>({
     resolver: zodResolver(pageContentFormSchema),
@@ -71,7 +66,7 @@ export default function PageContentFormPage() {
     }
   });
 
-  const { fields, append, remove } = useFieldArray({ // Removido 'update' pois não é usado diretamente aqui
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "content_sections",
   });
@@ -83,13 +78,13 @@ export default function PageContentFormPage() {
       getPageContentById(pageId)
         .then(page => {
           if (page) {
-            setPageIdentifierDisplay(page.page_identifier); // Para exibir o identificador
+            setPageIdentifierDisplay(page.page_identifier);
             const formData = {
               ...page,
               structured_data: page.structured_data ? JSON.stringify(page.structured_data, null, 2) : '',
               content_sections: page.content_sections || [],
             };
-            reset(formData as PageContentFormValues); // Cast para garantir compatibilidade
+            reset(formData as PageContentFormValues);
           } else {
             setLoadError('Conteúdo da página não encontrado.');
           }
@@ -112,18 +107,13 @@ export default function PageContentFormPage() {
       }
     }
     
-    // Assegurar que 'items' em seções FAQ seja um array de objetos
     const processedSections = formData.content_sections?.map(section => {
         if (section.type === 'faq' && typeof section.items === 'string') {
             try {
                 return { ...section, items: JSON.parse(section.items) };
             } catch (e) {
-                // Se o JSON for inválido, manter como string para o usuário corrigir, ou lançar erro
-                // Para este exemplo, vamos manter como string e esperar que a validação Zod pegue se for malformado
-                // Ou melhor, tentar converter e se falhar, pode-se adicionar um erro específico
                 console.warn("JSON inválido para itens da FAQ na seção:", section.title, e);
-                // Poderia adicionar um erro ao form aqui: setError(`content_sections.${index}.items`, { type: 'custom', message: 'JSON inválido'});
-                return section; // Devolve a seção como está se o parse falhar
+                return section;
             }
         }
         return section;
@@ -132,10 +122,9 @@ export default function PageContentFormPage() {
     const dataToUpdate = {
         ...formData,
         structured_data: structuredDataToSave,
-        content_sections: processedSections || [], // Usar seções processadas
+        content_sections: processedSections || [],
     };
     delete (dataToUpdate as any).page_identifier;
-
 
     try {
       await updatePageContent(pageId, dataToUpdate);
@@ -147,10 +136,27 @@ export default function PageContentFormPage() {
     }
   };
   
-  // UI de Loading e Erro (similar)
-  if (loadingPage) { return ( <div className="flex justify-center items-center h-64"><Loader2 className="h-16 w-16 animate-spin text-primaryBlue" /><p className="ml-4 text-lg text-neutralDark">Carregando dados da página...</p></div>); }
-  if (loadError) { return ( <div className="p-4 rounded-md bg-destructive/10 text-destructive flex flex-col items-center justify-center h-64"><AlertTriangle className="h-12 w-12 mb-4" /><h2 className="text-xl font-semibold mb-2">Erro ao Carregar Página</h2><p>{loadError}</p><Button variant="outline" onClick={() => navigate('/admin/pages-content')} className="mt-4">Voltar para Lista</Button></div>); }
-
+  if (loadingPage) { 
+    return ( 
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-16 w-16 animate-spin text-primaryBlue" />
+        <p className="ml-4 text-lg text-neutralDark">Carregando dados da página...</p>
+      </div>
+    ); 
+  }
+  
+  if (loadError) { 
+    return ( 
+      <div className="p-4 rounded-md bg-destructive/10 text-destructive flex flex-col items-center justify-center h-64">
+        <AlertTriangle className="h-12 w-12 mb-4" />
+        <h2 className="text-xl font-semibold mb-2">Erro ao Carregar Página</h2>
+        <p>{loadError}</p>
+        <Button variant="outline" onClick={() => navigate('/admin/pages-content')} className="mt-4">
+          Voltar para Lista
+        </Button>
+      </div>
+    ); 
+  }
 
   return (
     <div className="p-2 md:p-4">
@@ -257,14 +263,10 @@ export default function PageContentFormPage() {
                             <Textarea 
                                 placeholder='[{"question": "Pergunta 1?", "answer": "Resposta 1."}, {"question": "Pergunta 2?", "answer": "Resposta 2."}]' 
                                 rows={4} 
-                                {...register(`content_sections.${index}.items` as any)} // Cast para simplificar
+                                {...register(`content_sections.${index}.items` as any)}
                                 onChange={(e) => {
-                                    // Não tentar fazer parse aqui, Zod vai lidar com isso no submit
-                                    // Apenas registrar o valor como string
                                     setValue(`content_sections.${index}.items`, e.target.value as any);
                                 }}
-                                // O valor default é tratado pelo react-hook-form e Zod schema (array de objetos)
-                                // Para exibição inicial, se for string, mostrar como está, se for array, stringify
                                 defaultValue={
                                     Array.isArray(watch(`content_sections.${index}.items`)) ?
                                     JSON.stringify(watch(`content_sections.${index}.items`), null, 2) :

@@ -1,19 +1,18 @@
+
 // src/admin/pages/contacts/ContactMessagesListPage.tsx
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'; // Adicionado DropdownMenuSeparator
-import { MoreHorizontal, Trash2, Eye, CheckCircle, Archive, Mail, MessageSquare, Loader2, AlertTriangle, MailWarning, MailCheck } from 'lucide-react'; // Adicionados ícones relevantes
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { MoreHorizontal, Trash2, Eye, CheckCircle, Archive, Mail, MessageSquare, Loader2, AlertTriangle, MailWarning, MailCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Label } // Adicionado Label
-from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // Para filtro de status
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { getContactMessages, deleteContactMessage, updateContactMessageStatus } from '@/admin/services/contactMessageService'; // Ajustado
-import type { ContactMessage, ContactMessageStatus } from '@/admin/types/contactMessageTypes'; // Ajustado
-// import { useToast } from '@/components/ui/use-toast';
-import { format } from 'date-fns'; // Para formatar datas
-import { ptBR } from 'date-fns/locale'; // Para localização pt-BR
+import { getContactMessages, deleteContactMessage, updateContactMessageStatus } from '@/admin/services/contactMessageService';
+import type { ContactMessage, ContactMessageStatus } from '@/admin/types/contactMessageTypes';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const statusMapping: Record<ContactMessageStatus, { label: string; color: string; icon: React.ElementType }> = {
   "Não Lido": { label: "Não Lido", color: "bg-yellow-500", icon: MailWarning },
@@ -23,7 +22,6 @@ const statusMapping: Record<ContactMessageStatus, { label: string; color: string
 };
 
 export default function ContactMessagesListPage() {
-  // const { toast } = useToast();
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,10 +50,8 @@ export default function ContactMessagesListPage() {
       try {
         await deleteContactMessage(messageId);
         setMessages(prevMessages => prevMessages.filter(m => m.id !== messageId));
-        // toast({ title: "Sucesso", description: "Mensagem excluída." });
       } catch (err: any) {
         setError(err.message || 'Erro ao excluir mensagem.');
-        // toast({ title: "Erro", description: err.message, variant: "destructive" });
       }
     }
   };
@@ -65,23 +61,15 @@ export default function ContactMessagesListPage() {
       const updatedMessage = await updateContactMessageStatus(messageId, status);
       if (updatedMessage) {
         setMessages(prevMessages => prevMessages.map(m => m.id === messageId ? updatedMessage : m));
-        // toast({ title: "Sucesso", description: `Status atualizado para ${status}.` });
       }
     } catch (err: any) {
       setError(err.message || `Erro ao atualizar status para ${status}.`);
-      // toast({ title: "Erro", description: err.message, variant: "destructive" });
     }
   };
   
   const filteredMessages = messages.filter(message => 
     filterStatus === "Todos" || message.status === filterStatus
   );
-
-  // UI de Loading e Erro (similar ao QuotesListPage)
-  // Os blocos de loading e error foram movidos para dentro do CardContent para melhor estrutura
-  // if (loading) { /* ... UI de loading ... */ }
-  // if (error) { /* ... UI de erro ... */ }
-
 
   return (
     <div className="p-2 md:p-4">
@@ -143,7 +131,11 @@ export default function ContactMessagesListPage() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {filteredMessages.map((message) => (
+                {filteredMessages.map((message) => {
+                  const statusInfo = statusMapping[message.status || 'Não Lido'];
+                  const StatusIcon = statusInfo.icon;
+                  
+                  return (
                 <TableRow key={message.id} className="hover:bg-neutralLight/50">
                     <TableCell className="font-medium text-neutralDark">{message.name}</TableCell>
                     <TableCell>
@@ -156,10 +148,10 @@ export default function ContactMessagesListPage() {
                     <TableCell className="text-center">
                     <Badge 
                         variant="default"
-                        className={`${statusMapping[message.status || 'Não Lido']?.color || 'bg-gray-400'} text-white`}
+                        className={`${statusInfo.color} text-white`}
                     >
-                        <statusMapping[message.status || 'Não Lido'].icon className="mr-1 h-3 w-3"/> 
-                        {statusMapping[message.status || 'Não Lido'].label}
+                        <StatusIcon className="mr-1 h-3 w-3"/> 
+                        {statusInfo.label}
                     </Badge>
                     </TableCell>
                     <TableCell className="text-center">
@@ -178,16 +170,19 @@ export default function ContactMessagesListPage() {
                             <DropdownMenuSubTrigger><CheckCircle className="mr-2 h-4 w-4" /> Mudar Status</DropdownMenuSubTrigger>
                             <DropdownMenuPortal>
                             <DropdownMenuSubContent>
-                                {Object.keys(statusMapping).map(statusKey => (
+                                {Object.keys(statusMapping).map(statusKey => {
+                                  const SubStatusIcon = statusMapping[statusKey as ContactMessageStatus].icon;
+                                  return (
                                 <DropdownMenuItem 
                                     key={statusKey} 
                                     onClick={() => handleUpdateStatus(message.id!, statusKey as ContactMessageStatus)}
                                     disabled={message.status === statusKey}
                                 >
-                                    <statusMapping[statusKey as ContactMessageStatus].icon className="mr-2 h-4 w-4" />
+                                    <SubStatusIcon className="mr-2 h-4 w-4" />
                                     {statusMapping[statusKey as ContactMessageStatus].label}
                                 </DropdownMenuItem>
-                                ))}
+                                  );
+                                })}
                             </DropdownMenuSubContent>
                             </DropdownMenuPortal>
                         </DropdownMenuSub>
@@ -202,7 +197,8 @@ export default function ContactMessagesListPage() {
                     </DropdownMenu>
                     </TableCell>
                 </TableRow>
-                ))}
+                  );
+                })}
             </TableBody>
             </Table>
             )}

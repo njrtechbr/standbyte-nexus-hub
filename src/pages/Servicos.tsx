@@ -1,7 +1,7 @@
-
 import { CheckCircle, ArrowRight, Star, Award, Shield, Clock, Users, Wrench, Network, Camera, Zap, HardDrive, Mail, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -11,6 +11,7 @@ const Servicos = () => {
     {
       id: 1,
       title: "Cabeamento Estruturado",
+      slug: "cabeamento-estruturado",
       description: "Serviços completos de cabeamento estruturado para rede lógica e voz com padrões internacionais",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
       features: [
@@ -26,6 +27,7 @@ const Servicos = () => {
     {
       id: 2,
       title: "Fibra Óptica",
+      slug: "fibra-optica",
       description: "Lançamento e fusão de fibra óptica para conexões de alta velocidade e longa distância",
       image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
       features: [
@@ -41,6 +43,7 @@ const Servicos = () => {
     {
       id: 3,
       title: "Projeto de Rede Técnico",
+      slug: "projeto-rede-tecnico",
       description: "Desenvolvimento de projetos de rede com assinatura de engenheiro responsável",
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
       features: [
@@ -58,6 +61,7 @@ const Servicos = () => {
     {
       id: 4,
       title: "Câmeras de Segurança (CFTV)",
+      slug: "cameras-seguranca-cftv",
       description: "Instalação completa de sistemas de câmeras IP e analógicas para monitoramento",
       image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop",
       features: [
@@ -75,6 +79,7 @@ const Servicos = () => {
     {
       id: 5,
       title: "Projeto Elétrico",
+      slug: "projeto-eletrico",
       description: "Desenvolvimento de projetos elétricos com assinatura de engenheiro responsável",
       image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop",
       features: [
@@ -90,6 +95,7 @@ const Servicos = () => {
     {
       id: 6,
       title: "Projeto de Infraestrutura TI",
+      slug: "projeto-infraestrutura-ti",
       description: "Projetos completos de infraestrutura de tecnologia da informação",
       image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
       features: [
@@ -107,6 +113,7 @@ const Servicos = () => {
     {
       id: 7,
       title: "Painéis Solares",
+      slug: "paineis-solares",
       description: "Instalação de sistemas de energia solar On-Grid e Off-Grid",
       image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=300&fit=crop",
       features: [
@@ -122,6 +129,7 @@ const Servicos = () => {
     {
       id: 8,
       title: "Nobreaks",
+      slug: "nobreaks",
       description: "Instalação de sistemas de energia ininterrupta de grande e pequeno porte",
       image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
       features: [
@@ -139,6 +147,7 @@ const Servicos = () => {
     {
       id: 9,
       title: "Backup de Dados",
+      slug: "backup-dados",
       description: "Sistema de backup mensal automatizado para proteção de dados corporativos",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
       features: [
@@ -154,6 +163,7 @@ const Servicos = () => {
     {
       id: 10,
       title: "E-mail Corporativo",
+      slug: "email-corporativo",
       description: "Implantação completa de sistema de e-mail corporativo profissional",
       image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop",
       features: [
@@ -201,12 +211,16 @@ const Servicos = () => {
                 Soluções completas para sua empresa com tecnologia de ponta e equipe especializada
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-standbyte-red hover:bg-red-700 text-standbyte-white px-8 py-4">
-                  Solicitar Orçamento Grátis
-                </Button>
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-standbyte-blue px-8 py-4">
-                  Falar com Especialista
-                </Button>
+                <Link to="/orcamento">
+                  <Button size="lg" className="bg-standbyte-red hover:bg-red-700 text-standbyte-white px-8 py-4">
+                    Solicitar Orçamento Grátis
+                  </Button>
+                </Link>
+                <Link to="/contato">
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-standbyte-blue px-8 py-4">
+                    Falar com Especialista
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -227,34 +241,38 @@ const Servicos = () => {
             {services.map((service) => (
               <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-standbyte-light">
                 <CardHeader className="p-0 relative overflow-hidden">
-                  <div className="relative h-48">
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-standbyte-red text-standbyte-white px-3 py-1 text-sm font-bold rounded-full">
-                        {service.badge}
-                      </span>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-white/90 text-standbyte-dark px-3 py-1 text-xs font-medium rounded-full">
-                        {service.category}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-4 right-4">
-                      <div className="w-10 h-10 bg-standbyte-blue rounded-lg flex items-center justify-center">
-                        <service.icon className="w-5 h-5 text-standbyte-white" />
+                  <Link to={`/servico/${service.slug}`}>
+                    <div className="relative h-48">
+                      <img 
+                        src={service.image} 
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-standbyte-red text-standbyte-white px-3 py-1 text-sm font-bold rounded-full">
+                          {service.badge}
+                        </span>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-standbyte-dark px-3 py-1 text-xs font-medium rounded-full">
+                          {service.category}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-4 right-4">
+                        <div className="w-10 h-10 bg-standbyte-blue rounded-lg flex items-center justify-center">
+                          <service.icon className="w-5 h-5 text-standbyte-white" />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </CardHeader>
 
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-standbyte-dark mb-3">
-                    {service.title}
-                  </h3>
+                  <Link to={`/servico/${service.slug}`}>
+                    <h3 className="text-xl font-bold text-standbyte-dark mb-3 hover:text-standbyte-blue transition-colors">
+                      {service.title}
+                    </h3>
+                  </Link>
                   
                   <p className="text-standbyte-mid mb-4 leading-relaxed">
                     {service.description}
@@ -270,10 +288,12 @@ const Servicos = () => {
                   </div>
 
                   <div className="border-t border-standbyte-light pt-4">
-                    <Button className="w-full bg-standbyte-blue hover:bg-blue-800 text-standbyte-white">
-                      Solicitar Orçamento
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
+                    <Link to={`/servico/${service.slug}`}>
+                      <Button className="w-full bg-standbyte-blue hover:bg-blue-800 text-standbyte-white">
+                        Ver Detalhes
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

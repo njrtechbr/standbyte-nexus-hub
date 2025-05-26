@@ -3,8 +3,10 @@ import { useState } from "react";
 import { ShoppingCart, Heart, Star, Filter, Grid3X3, List, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { products } from "@/data/products";
 
 const Produtos = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -13,40 +15,6 @@ const Produtos = () => {
   const categories = [
     "Todos", "Notebooks", "PCs Gamers", "Placas de Vídeo", 
     "Processadores", "Monitores", "Armazenamento", "Periféricos"
-  ];
-
-  const products = [
-    {
-      id: 1,
-      name: "Notebook Gamer Legion 5i",
-      brand: "Lenovo",
-      image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400&h=300&fit=crop",
-      originalPrice: 8999.99,
-      salePrice: 7499.99,
-      discount: 17,
-      rating: 4.8,
-      reviews: 234,
-      specs: ["Intel i7-12700H", "RTX 4060 8GB", "16GB DDR5", "512GB SSD", "15.6'' 144Hz"],
-      category: "Notebooks",
-      isOnSale: true,
-      isFreeShipping: true
-    },
-    {
-      id: 2,
-      name: "Placa de Vídeo RTX 4070",
-      brand: "ASUS",
-      image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400&h=300&fit=crop",
-      originalPrice: 3299.99,
-      salePrice: 2899.99,
-      discount: 12,
-      rating: 4.9,
-      reviews: 189,
-      specs: ["12GB GDDR6X", "DLSS 3.0", "Ray Tracing", "Dual Fan", "PCI-E 4.0"],
-      category: "Placas de Vídeo",
-      isOnSale: true,
-      isFreeShipping: true
-    },
-    // ... mais produtos aqui
   ];
 
   const formatPrice = (price: number) => {
@@ -130,23 +98,25 @@ const Produtos = () => {
             {filteredProducts.map((product) => (
               <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-standbyte-light">
                 <CardHeader className="p-0 relative overflow-hidden">
-                  <div className="relative h-48 bg-standbyte-light">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    
-                    {product.isOnSale && (
-                      <span className="absolute top-3 left-3 bg-standbyte-red text-standbyte-white px-3 py-1 text-sm font-bold rounded">
-                        -{product.discount}%
-                      </span>
-                    )}
+                  <Link to={`/produto/${product.slug}`}>
+                    <div className="relative h-48 bg-standbyte-light">
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      
+                      {product.isOnSale && (
+                        <span className="absolute top-3 left-3 bg-standbyte-red text-standbyte-white px-3 py-1 text-sm font-bold rounded">
+                          -{product.discount}%
+                        </span>
+                      )}
 
-                    <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors">
-                      <Heart className="w-4 h-4 text-standbyte-mid hover:text-standbyte-red" />
-                    </button>
-                  </div>
+                      <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                        <Heart className="w-4 h-4 text-standbyte-mid hover:text-standbyte-red" />
+                      </button>
+                    </div>
+                  </Link>
                 </CardHeader>
 
                 <CardContent className="p-6">
@@ -157,9 +127,11 @@ const Produtos = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-standbyte-dark mb-3 line-clamp-2">
-                    {product.name}
-                  </h3>
+                  <Link to={`/produto/${product.slug}`}>
+                    <h3 className="text-lg font-bold text-standbyte-dark mb-3 line-clamp-2 hover:text-standbyte-blue transition-colors">
+                      {product.name}
+                    </h3>
+                  </Link>
 
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex">
@@ -198,9 +170,11 @@ const Produtos = () => {
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Comprar
                     </Button>
-                    <Button variant="outline" className="border-standbyte-blue text-standbyte-blue hover:bg-standbyte-blue hover:text-standbyte-white">
-                      Ver Mais
-                    </Button>
+                    <Link to={`/produto/${product.slug}`}>
+                      <Button variant="outline" className="border-standbyte-blue text-standbyte-blue hover:bg-standbyte-blue hover:text-standbyte-white">
+                        Ver Mais
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

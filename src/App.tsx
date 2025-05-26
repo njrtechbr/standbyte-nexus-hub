@@ -10,6 +10,7 @@ import Servicos from "./pages/Servicos";
 import Sobre from "./pages/Sobre";
 import Carrinho from "./pages/Carrinho";
 import Contato from "./pages/Contato";
+import Orcamento from "./pages/Orcamento";
 import Conta from "./pages/Conta";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/contato" element={<Contato />} />
+          <Route path="/orcamento" element={<Orcamento />} />
           <Route path="/conta" element={<Conta />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

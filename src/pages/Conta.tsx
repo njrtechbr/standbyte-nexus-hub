@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { User, Package, Heart, Settings, LogOut, Edit } from "lucide-react";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,10 +65,9 @@ const Conta = () => {
       default: return 'bg-gray-100 text-gray-800';
     }
   };
-
   return (
     <div className="min-h-screen bg-standbyte-light">
-      <Header />
+      <HeaderWithAuth />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center space-x-3 mb-8">
           <User className="w-8 h-8 text-standbyte-blue" />

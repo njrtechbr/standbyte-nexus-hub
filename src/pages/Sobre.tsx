@@ -1,12 +1,12 @@
 
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import About from "@/components/About";
 
 const Sobre = () => {
   return (
     <div className="min-h-screen bg-standbyte-white">
-      <Header />
+      <HeaderWithAuth />
       <main className="pt-8">
         <About />
         

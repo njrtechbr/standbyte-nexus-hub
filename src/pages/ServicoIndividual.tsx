@@ -1,7 +1,7 @@
 
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import ServiceBreadcrumb from "@/components/service/ServiceBreadcrumb";
 import ServiceImageGallery from "@/components/service/ServiceImageGallery";
@@ -14,11 +14,10 @@ import { getServiceBySlug } from "@/data/services";
 const ServicoIndividual = () => {
   const { slug } = useParams<{ slug: string }>();
   const service = slug ? getServiceBySlug(slug) : null;
-
   if (!service) {
     return (
       <div className="min-h-screen bg-standbyte-white">
-        <Header />
+        <HeaderWithAuth />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h1 className="text-3xl font-bold text-standbyte-dark mb-4">Serviço não encontrado</h1>
           <Link to="/servicos" className="text-standbyte-blue hover:underline">
@@ -29,10 +28,9 @@ const ServicoIndividual = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-standbyte-white">
-      <Header />
+      <HeaderWithAuth />
       
       <main className="pt-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

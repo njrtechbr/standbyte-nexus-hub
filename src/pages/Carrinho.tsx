@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Minus, Plus, Trash2, ShoppingCart } from "lucide-react";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
@@ -37,10 +37,9 @@ const Carrinho = () => {
   };
 
   const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
   return (
     <div className="min-h-screen bg-standbyte-light">
-      <Header />
+      <HeaderWithAuth />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center space-x-3 mb-8">
           <ShoppingCart className="w-8 h-8 text-standbyte-blue" />

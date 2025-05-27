@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,9 +31,8 @@ const Contato = () => {
     }));
   };
 
-  return (
-    <div className="min-h-screen bg-standbyte-light">
-      <Header />
+  return (    <div className="min-h-screen bg-standbyte-light">
+      <HeaderWithAuth />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-standbyte-blue mb-4">Contato & Orçamentos</h1>

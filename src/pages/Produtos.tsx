@@ -4,7 +4,7 @@ import { ShoppingCart, Heart, Star, Filter, Grid3X3, List, ChevronDown } from "l
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import { products } from "@/data/products";
 
@@ -24,10 +24,9 @@ const Produtos = () => {
   const filteredProducts = selectedCategory === 'Todos' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
-
   return (
     <div className="min-h-screen bg-standbyte-white">
-      <Header />
+      <HeaderWithAuth />
       
       <main className="pt-8">
         {/* Page Header */}

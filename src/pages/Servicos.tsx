@@ -2,7 +2,7 @@ import { CheckCircle, ArrowRight, Star, Award, Shield, Clock, Users, Wrench, Net
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 
 const Servicos = () => {
@@ -194,10 +194,9 @@ const Servicos = () => {
       rating: 5
     }
   ];
-
   return (
     <div className="min-h-screen bg-standbyte-white">
-      <Header />
+      <HeaderWithAuth />
       
       <main className="pt-8">
         {/* Hero Section */}

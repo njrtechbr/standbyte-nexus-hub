@@ -90,16 +90,14 @@ const Hero = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
-
   const currentSlideData = slides[currentSlide];
-
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-standbyte-white via-standbyte-light to-standbyte-white">
+    <section id="home" className="relative h-[70vh] overflow-hidden bg-gradient-to-br from-standbyte-white via-standbyte-light to-standbyte-white">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-standbyte-blue/5 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-standbyte-red/5 to-transparent"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-standbyte-blue/3 to-standbyte-red/3 rounded-full blur-3xl animate-pulse-custom"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-standbyte-blue/3 to-standbyte-red/3 rounded-full blur-3xl animate-pulse-custom"></div>
       </div>
 
       {/* Floating Particles */}
@@ -110,41 +108,36 @@ const Hero = () => {
         <div className="absolute bottom-20 right-32 w-1 h-1 bg-standbyte-red/25 rounded-full animate-float" style={{ animationDelay: '3s' }}></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-        
-        {/* Navigation Controls */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+          {/* Navigation Controls */}
         <div className="absolute top-1/2 left-4 right-4 flex justify-between items-center z-10 pointer-events-none">
           <button 
             onClick={prevSlide}
-            className="group w-14 h-14 bg-standbyte-white shadow-lg hover:shadow-xl rounded-full flex items-center justify-center transition-all duration-300 pointer-events-auto border border-standbyte-light hover:border-standbyte-blue hover:scale-110"
+            className="group w-12 h-12 bg-standbyte-white shadow-lg hover:shadow-xl rounded-full flex items-center justify-center transition-all duration-300 pointer-events-auto border border-standbyte-light hover:border-standbyte-blue hover:scale-110"
           >
-            <ChevronLeft className="w-6 h-6 text-standbyte-blue group-hover:text-standbyte-red transition-colors" />
+            <ChevronLeft className="w-5 h-5 text-standbyte-blue group-hover:text-standbyte-red transition-colors" />
           </button>
           <button 
             onClick={nextSlide}
-            className="group w-14 h-14 bg-standbyte-white shadow-lg hover:shadow-xl rounded-full flex items-center justify-center transition-all duration-300 pointer-events-auto border border-standbyte-light hover:border-standbyte-blue hover:scale-110"
+            className="group w-12 h-12 bg-standbyte-white shadow-lg hover:shadow-xl rounded-full flex items-center justify-center transition-all duration-300 pointer-events-auto border border-standbyte-light hover:border-standbyte-blue hover:scale-110"
           >
-            <ChevronRight className="w-6 h-6 text-standbyte-blue group-hover:text-standbyte-red transition-colors" />
+            <ChevronRight className="w-5 h-5 text-standbyte-blue group-hover:text-standbyte-red transition-colors" />
           </button>
-        </div>
-
-        {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+        </div>{/* Slide Indicators */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-3 rounded-full transition-all duration-300 ${
+              className={`h-2 rounded-full transition-all duration-300 ${
                 index === currentSlide 
-                  ? 'bg-standbyte-blue w-10 shadow-lg' 
-                  : 'bg-standbyte-mid/40 w-3 hover:bg-standbyte-blue/60 hover:w-6'
+                  ? 'bg-standbyte-blue w-8 shadow-lg' 
+                  : 'bg-standbyte-mid/40 w-2 hover:bg-standbyte-blue/60 hover:w-4'
               }`}
             />
           ))}
-        </div>
-
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[700px] relative z-10">
+        </div>        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[400px] relative z-10">
           
           {/* Service Content */}
           {currentSlideData.type === 'service' && <ServiceSlide />}

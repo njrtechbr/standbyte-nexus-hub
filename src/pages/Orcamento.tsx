@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Send, Calculator, CheckCircle, Clock, Award, Users } from "lucide-react";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,10 +47,9 @@ const Orcamento = () => {
     "Consultoria em TI",
     "Suporte Especializado"
   ];
-
   return (
     <div className="min-h-screen bg-standbyte-light">
-      <Header />
+      <HeaderWithAuth />
       
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}

@@ -1,5 +1,5 @@
 
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Hero from "@/components/Hero";
 import Products from "@/components/Products";
 import Services from "@/components/Services";
@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-standbyte-white">
-      <Header />
+      <HeaderWithAuth />
       <Hero />
       <Products />
       <Services />

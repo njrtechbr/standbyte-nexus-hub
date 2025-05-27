@@ -1,7 +1,10 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X, ShoppingCart, Search, User, Phone, Mail } from "lucide-react";
+import { Menu, X, Search, Phone, Mail } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { UserMenu } from "./auth/UserMenu";
+import { AuthForm } from "./auth/AuthForm";
+import { Dialog, DialogContent } from "./ui/dialog";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

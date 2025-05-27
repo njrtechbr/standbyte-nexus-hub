@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { ShoppingCart, Heart, Star, Truck, Shield, ArrowLeft, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import Header from "@/components/Header";
+import HeaderWithAuth from "@/components/HeaderWithAuth";
 import Footer from "@/components/Footer";
 import { getProductBySlug } from "@/data/products";
 
@@ -14,11 +14,10 @@ const ProdutoIndividual = () => {
   const [quantity, setQuantity] = useState(1);
 
   const product = slug ? getProductBySlug(slug) : null;
-
   if (!product) {
     return (
       <div className="min-h-screen bg-standbyte-white">
-        <Header />
+        <HeaderWithAuth />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h1 className="text-3xl font-bold text-standbyte-dark mb-4">Produto não encontrado</h1>
           <Link to="/produtos" className="text-standbyte-blue hover:underline">
@@ -41,10 +40,9 @@ const ProdutoIndividual = () => {
       setQuantity(prev => prev - 1);
     }
   };
-
   return (
     <div className="min-h-screen bg-standbyte-white">
-      <Header />
+      <HeaderWithAuth />
       
       <main className="pt-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
